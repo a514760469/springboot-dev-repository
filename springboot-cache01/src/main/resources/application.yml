@@ -1,0 +1,26 @@
+debug: true
+logging:
+  level:
+    com:
+      cplh: 
+        gis:
+          mapper: debug 
+spring:
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_cache?useSSL=false&useUnicode=true&characterEncoding=utf8
+  redis:
+    host: 192.168.100.74
+    password: 123456
+  rabbitmq:
+    host: 192.168.100.74
+    username: guest
+    password: guest
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 开启mybatis驼峰命名支持
+
+
+    

@@ -1,0 +1,10 @@
+dubbo:
+  application:
+    name: provider-ticket
+  registry:
+    address: zookeeper://192.168.100.74:2181
+  scan:
+    base-packages: com.cplh.gis.ticket.service
+logging:
+  level: debug
+

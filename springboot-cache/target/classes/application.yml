@@ -1,0 +1,20 @@
+server:
+  port: 8999
+spring:
+  profiles:
+    active: test
+---
+server:
+  port: 8888
+  servlet:
+    context-path: /cache
+spring:
+  profiles: test
+  http:
+    encoding:
+      force: false
+  activemq:
+    pool:
+      enabled: true
+  application:
+    name: cache
