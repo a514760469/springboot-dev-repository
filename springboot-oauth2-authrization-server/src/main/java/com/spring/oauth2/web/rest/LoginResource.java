@@ -21,6 +21,11 @@ public class LoginResource {
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * rest登录
+     * @param user
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());

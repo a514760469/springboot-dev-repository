@@ -1,10 +1,18 @@
 package com.spring.oauth2.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * 开启授权服务器
@@ -31,6 +39,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      *
      *
      */
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Bean
+    public TokenStore tokenStore(DataSource dataSource) {
+        return new JdbcTokenStore(dataSource);
+    }
 
     /**
      * 添加客户端信息
@@ -45,16 +60,33 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
             .secret("secret")                   // client_secret
             .authorizedGrantTypes("authorization_code")     // 该client允许的授权类型
             .scopes("app")                                  // 允许的授权范围
-            .autoApprove(true)  // 自动批准
-            .accessTokenValiditySeconds(3600);
+            .autoApprove(true)                  // 自动批准
+            .accessTokenValiditySeconds(3600)       // 1 hour
+            .refreshTokenValiditySeconds(259200)    // 30 day
+
+            .and()
+            .withClient("implicitClient")
+            .secret("secret")
+            .authorizedGrantTypes("implicit")
+            .scopes("app")
+            .autoApprove(false)
+            .accessTokenValiditySeconds(3600)
+            .refreshTokenValiditySeconds(259200)
+        ;
 
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients();
-//        super.configure(security);
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
+//        oauthServer.tokenKeyAccess("permitAll()")
+//                .checkTokenAccess("permitAll()")
+//                .allowFormAuthenticationForClients();
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+
+    }
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        super.configure(endpoints);
     }
 }
