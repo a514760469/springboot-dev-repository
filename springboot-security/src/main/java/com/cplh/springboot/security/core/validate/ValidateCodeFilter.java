@@ -1,7 +1,6 @@
 package com.cplh.springboot.security.core.validate;
 
 import com.cplh.springboot.security.core.properties.SecurityProperties;
-import com.cplh.springboot.security.web.controller.ValidateCodeController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

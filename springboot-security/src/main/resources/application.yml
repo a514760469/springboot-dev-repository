@@ -1,13 +1,21 @@
 server:
     port: 8080
+spring:
+    datasource:
+        password: root
+        driver-class-name: org.gjt.mm.mysql.Driver
+        username: root
+        url: jdbc:mysql://localhost:3306/spring_cache?useSSL=false&useUnicode=true&characterEncoding=utf8
+
+
 
 application:
     security:
         browser:
 #            login-page: /demo-siginIn.html
             loginType: JSON
-        code:
-            image:
-                length: 6
-                width: 100
-                url: /user*
+#        code:
+#            image:
+#                length: 6
+#                width: 100
+#                url: /user*

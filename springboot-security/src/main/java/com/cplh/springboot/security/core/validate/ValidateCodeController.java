@@ -1,11 +1,13 @@
-package com.cplh.springboot.security.web.controller;
+package com.cplh.springboot.security.core.validate;
 
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.validate.ImageCode;
 import com.cplh.springboot.security.core.validate.ValidateCodeGenerator;
+import com.cplh.springboot.security.core.validate.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,11 +34,42 @@ public class ValidateCodeController {
     @Autowired
     private ValidateCodeGenerator validateCodeGenerator;
 
+    @Autowired
+    private ValidateCodeGenerator smsCodeGenerator;
+
+    /**
+     * 短信发送器
+     */
+    @Autowired
+    private SmsCodeSender smsCodeSender;
+
+
+    /**
+     * 图形验证码
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = validateCodeGenerator.generate(request);
+        ImageCode imageCode = (ImageCode) validateCodeGenerator.generate(request);
         sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
         ImageIO.write(imageCode.getBufferedImage(), "JPEG", response.getOutputStream());
+    }
+
+    /**
+     * 短信验证码
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @GetMapping("/code/sms")
+    public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
+        ValidateCode smsCode = smsCodeGenerator.generate(request);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, smsCode);
+        String mobile = ServletRequestUtils.getRequiredStringParameter(request, "mobile");
+        smsCodeSender.send(mobile, smsCode.getCode());
+
     }
 
 
