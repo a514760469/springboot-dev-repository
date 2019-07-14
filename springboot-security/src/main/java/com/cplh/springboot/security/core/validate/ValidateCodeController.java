@@ -53,7 +53,7 @@ public class ValidateCodeController {
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = (ImageCode) validateCodeGenerator.generate(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY + "IMAGE", imageCode);
         ImageIO.write(imageCode.getBufferedImage(), "JPEG", response.getOutputStream());
     }
 
@@ -66,7 +66,7 @@ public class ValidateCodeController {
     @GetMapping("/code/sms")
     public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
         ValidateCode smsCode = smsCodeGenerator.generate(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, smsCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY + "SMS", smsCode);
         String mobile = ServletRequestUtils.getRequiredStringParameter(request, "mobile");
         smsCodeSender.send(mobile, smsCode.getCode());
 

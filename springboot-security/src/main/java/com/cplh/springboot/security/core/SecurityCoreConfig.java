@@ -15,13 +15,17 @@ import org.springframework.context.annotation.Configuration;
 public class SecurityCoreConfig {
 
     @Bean
-    @ConditionalOnMissingBean(name = "validateCodeGenerator")
+    @ConditionalOnMissingBean(name = "imageCodeGenerator")
     public ValidateCodeGenerator validateCodeGenerator(SecurityProperties securityProperties) {
         ImageCodeGenerator generator = new ImageCodeGenerator();
         generator.setSecurityProperties(securityProperties);
         return generator;
     }
 
+    /**
+     * 发送器。 如果没有使用默认的
+     * @return
+     */
     @Bean
     @ConditionalOnMissingBean(SmsCodeSender.class)
     public SmsCodeSender smsCodeSender() {

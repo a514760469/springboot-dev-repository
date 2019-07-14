@@ -2,6 +2,7 @@ package com.cplh.springboot.security.core.validate;
 
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 
@@ -13,6 +14,7 @@ import java.util.Random;
 @Component
 public class SmsCodeGenerator implements ValidateCodeGenerator {
 
+    @Autowired
     private SecurityProperties securityProperties;
 
     @Override
