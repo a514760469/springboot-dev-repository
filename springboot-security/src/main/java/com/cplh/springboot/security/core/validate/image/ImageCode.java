@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
 /**
- * 图形验证码
+ * 图片验证码， 是验证码的一个子类，多了一个图片的属性
  */
 public class ImageCode extends ValidateCode {
 
@@ -15,7 +15,6 @@ public class ImageCode extends ValidateCode {
     public ImageCode(BufferedImage bufferedImage, String code, int expireIn) {
         super(code, expireIn);
         this.bufferedImage = bufferedImage;
-
     }
 
     public ImageCode(BufferedImage bufferedImage, String code, LocalDateTime expireTime) {

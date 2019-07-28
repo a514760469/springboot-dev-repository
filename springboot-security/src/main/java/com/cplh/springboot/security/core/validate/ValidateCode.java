@@ -3,7 +3,7 @@ package com.cplh.springboot.security.core.validate;
 import java.time.LocalDateTime;
 
 /**
- * 封装短信验证码
+ * 封装验证码对象
  */
 public class ValidateCode {
 

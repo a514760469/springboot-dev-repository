@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,26 @@ import org.springframework.stereotype.Component;
 public class SmsCodeAuthenticationSecurityConfig
         extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-
+    /**
+     * 成功处理器
+     */
     @Autowired
     AppAuthenticationSuccessHandler appAuthenticationSuccessHandler;
 
+    /**
+     * 失败处理器
+     */
     @Autowired
     AppAuthenticationFailureHandler appAuthenticationFailureHandler;
 
-    @Autowired
-    SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
+    /**
+     * 短信provider
+     */
+//    @Autowired
+//    SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
 
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -35,7 +46,11 @@ public class SmsCodeAuthenticationSecurityConfig
         smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(appAuthenticationSuccessHandler);
         smsCodeAuthenticationFilter.setAuthenticationFailureHandler(appAuthenticationFailureHandler);
 
-        http.authenticationProvider(smsCodeAuthenticationProvider)
+        SmsCodeAuthenticationProvider provider = new SmsCodeAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+
+        http
+            .authenticationProvider(provider)
             .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     }

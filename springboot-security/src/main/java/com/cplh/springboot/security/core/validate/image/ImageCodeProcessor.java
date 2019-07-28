@@ -12,8 +12,9 @@ import org.springframework.web.context.request.ServletWebRequest;
  * 
  * @author zhailiang
  *
+ * imageValidateCodeProcessor 这个名称为了让依赖查找能找到
  */
-@Component("imageCodeProcessor")
+@Component("imageValidateCodeProcessor")
 public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
 
 	/**

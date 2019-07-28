@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  *
  */
-@Component
+//@Component("smsCodeAuthenticationProvider")
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired

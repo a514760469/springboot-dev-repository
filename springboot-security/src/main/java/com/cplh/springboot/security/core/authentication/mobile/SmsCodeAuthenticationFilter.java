@@ -49,7 +49,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         }
 
         mobile = mobile.trim();
-
+        // 短信token
         SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken(mobile);
 
         // Allow subclasses to set the "details" property

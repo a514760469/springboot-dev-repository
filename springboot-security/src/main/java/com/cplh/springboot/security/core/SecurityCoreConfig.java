@@ -2,7 +2,6 @@ package com.cplh.springboot.security.core;
 
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.validate.image.ImageCodeGenerator;
-import com.cplh.springboot.security.core.validate.ValidateCodeGenerator;
 import com.cplh.springboot.security.core.validate.sms.DefaultSmsCodeSender;
 import com.cplh.springboot.security.core.validate.sms.SmsCodeSender;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,7 +27,7 @@ public class SecurityCoreConfig {
     }
 
     /**
-     * 发送器。 如果没有使用默认的
+     * 短信发送器。 如果没有使用默认的
      * @return
      */
     @Bean
