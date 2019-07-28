@@ -1,4 +1,6 @@
-package com.cplh.springboot.security.core.validate;
+package com.cplh.springboot.security.core.validate.image;
+
+import com.cplh.springboot.security.core.validate.ValidateCode;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;

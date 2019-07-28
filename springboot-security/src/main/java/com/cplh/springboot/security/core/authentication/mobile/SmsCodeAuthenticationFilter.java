@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 短信登录请求过滤器
  * 代码仿照 UsernamePasswordAuthenticationFilter
  */
 //@Component

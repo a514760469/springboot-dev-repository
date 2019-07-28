@@ -2,8 +2,6 @@ package com.cplh.springboot.security.config;
 
 import com.cplh.springboot.security.authentication.AppAuthenticationFailureHandler;
 import com.cplh.springboot.security.authentication.AppAuthenticationSuccessHandler;
-import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationFilter;
-import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationProvider;
 import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.validate.SmsCodeFilter;
@@ -11,7 +9,6 @@ import com.cplh.springboot.security.core.validate.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,9 +47,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     SmsCodeFilter smsCodeFilter;
 
     @Autowired
-    SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
-
-    @Autowired
     SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Override
@@ -61,13 +55,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+
             .formLogin()
                 .loginPage("/authentication/require")       // 自定义的登录页面 signIn.html
-    //            .loginPage(securityProperties.getBrowser().getLoginPage())
                 .loginProcessingUrl("/authentication/form") // 自定义表单登录请求 action="/authentication/form"
                 .successHandler(appAuthenticationSuccessHandler)
                 .failureHandler(appAuthenticationFailureHandler)
                 .and()
+
              // remember-me 功能
             .rememberMe()
                 .tokenRepository(persistentTokenRepository())

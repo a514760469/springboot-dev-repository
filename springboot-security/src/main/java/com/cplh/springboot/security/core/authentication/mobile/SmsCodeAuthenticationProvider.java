@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     /**
      *
@@ -50,4 +50,11 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
         return SmsCodeAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
+    public UserDetailsService getUserDetailsService() {
+        return userDetailsService;
+    }
+
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 }

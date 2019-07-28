@@ -1,6 +1,8 @@
 package com.cplh.springboot.security.core.validate;
 
+import com.cplh.springboot.security.authentication.AppAuthenticationFailureHandler;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
+import com.cplh.springboot.security.core.validate.image.ImageCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,7 @@ import java.util.Set;
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     @Autowired
-    @Qualifier("appAuthenticationFailureHandler")
-    AuthenticationFailureHandler authenticationFailureHandler;
+    AppAuthenticationFailureHandler appAuthenticationFailureHandler;
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
@@ -44,6 +45,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
+    /**
+     * 初始化
+     * @throws ServletException
+     */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
@@ -68,7 +73,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 validate(new ServletWebRequest(request));
             } catch (ValidateCodeException e) {
                 // 有异常去之前定义的失败处理器
-                authenticationFailureHandler.onAuthenticationFailure(request, response, e);
+                appAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
             }
 
@@ -84,7 +89,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
 
         ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(request,
-                ValidateCodeController.SESSION_KEY + "IMAGE");
+                ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE");
         // 从参数中获取 name 为 imageCode 的参数的值
         String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "imageCode");
 
@@ -97,7 +102,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
 
         if(codeInSession.isExpried()){
-            sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
+            sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX );
             throw new ValidateCodeException("验证码已过期");
         }
 
@@ -105,7 +110,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
             throw new ValidateCodeException("验证码不匹配");
         }
 
-        sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY + "IMAGE");
+        sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX  + "IMAGE");
     }
 
     public Set<String> getUrls() {

@@ -1,5 +1,6 @@
 package com.cplh.springboot.security.core.validate;
 
+import com.cplh.springboot.security.authentication.AppAuthenticationFailureHandler;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -32,8 +33,7 @@ import java.util.Set;
 public class SmsCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     @Autowired
-    @Qualifier("appAuthenticationFailureHandler")
-    AuthenticationFailureHandler authenticationFailureHandler;
+    AppAuthenticationFailureHandler appAuthenticationFailureHandler;
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
@@ -68,7 +68,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
                 validate(new ServletWebRequest(request));
             } catch (ValidateCodeException e) {
                 // 有异常去之前定义的失败处理器
-                authenticationFailureHandler.onAuthenticationFailure(request, response, e);
+                appAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
             }
 
@@ -84,7 +84,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
 
         ValidateCode codeInSession = (ValidateCode) sessionStrategy.getAttribute(request,
-                ValidateCodeController.SESSION_KEY + "SMS");
+                ValidateCodeProcessor.SESSION_KEY_PREFIX  + "SMS");
         // 从参数中获取 name 为 imageCode 的参数的值
         String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "smsCode");
 
@@ -97,7 +97,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
         }
 
         if(codeInSession.isExpried()){
-            sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY + "SMS");
+            sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX  + "SMS");
             throw new ValidateCodeException("验证码已过期");
         }
 
@@ -105,7 +105,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
             throw new ValidateCodeException("验证码不匹配");
         }
 
-        sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY + "SMS");
+        sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX  + "SMS");
     }
 
     public Set<String> getUrls() {
