@@ -1,6 +1,7 @@
-package com.cplh.springboot.security.core.validate;
+package com.cplh.springboot.security.core.validate.image;
 
 import com.cplh.springboot.security.core.properties.SecurityProperties;
+import com.cplh.springboot.security.core.validate.ValidateCodeGenerator;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;

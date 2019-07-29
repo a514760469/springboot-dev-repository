@@ -1,5 +1,6 @@
 package com.cplh.springboot.security.web.rest;
 
+import com.cplh.springboot.security.config.constant.SecurityConstants;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.support.SimpleResponse;
 import org.slf4j.Logger;
@@ -34,11 +35,13 @@ public class LoginController {
 
     /**
      * 当需要身份认证时，到这里！
-     * @return
+     * @return  SimpleResponse
      */
-    @RequestMapping("/authentication/require")
+    @RequestMapping(value = {SecurityConstants.DEFAULT_UNAUTHENTICATION_URL})
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         if(savedRequest != null) {
             String target = savedRequest.getRedirectUrl();

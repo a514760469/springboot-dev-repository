@@ -2,27 +2,27 @@ package com.cplh.springboot.security.config;
 
 import com.cplh.springboot.security.authentication.AppAuthenticationFailureHandler;
 import com.cplh.springboot.security.authentication.AppAuthenticationSuccessHandler;
-import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationFilter;
-import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationProvider;
+import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.authentication.AbstractChannelSecurityConfig;
 import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
-import com.cplh.springboot.security.core.validate.SmsCodeFilter;
 import com.cplh.springboot.security.core.validate.ValidateCodeFilter;
+import com.cplh.springboot.security.core.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
 
+/**
+ * 浏览器Security配置
+ */
 @Configuration
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     SecurityProperties securityProperties;
@@ -42,48 +42,43 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MyUserDetailService userDetailsService;
 
-    // sms
-//    @Autowired
-//    SmsCodeAuthenticationFilter smsCodeAuthenticationFilter;
-
-    @Autowired
-    SmsCodeFilter smsCodeFilter;
-
-    @Autowired
-    SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
-
+    /**
+     * 抽象配置
+     */
     @Autowired
     SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    @Autowired
+    ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.httpBasic() // BasicAuthenticationFilter 生效
 
-        http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-            .formLogin()
-                .loginPage("/authentication/require")       // 自定义的登录页面 signIn.html
-    //            .loginPage(securityProperties.getBrowser().getLoginPage())
-                .loginProcessingUrl("/authentication/form") // 自定义表单登录请求 action="/authentication/form"
-                .successHandler(appAuthenticationSuccessHandler)
-                .failureHandler(appAuthenticationFailureHandler)
+        // 抽象配置生效
+        applyPasswordAuthenticationConfig(http);
+
+        // smsCodeAuthenticationSecurityConfig配置类中的所有配置加进来
+        http.apply(smsCodeAuthenticationSecurityConfig)
                 .and()
-             // remember-me 功能
+            .apply(validateCodeSecurityConfig)
+                .and()
+            // 浏览器特有配置
+            // remember-me 功能
             .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
-
-
-            .and()
+                .and()
             .authorizeRequests()
-            .antMatchers("/code/*", "/authentication/require", securityProperties.getBrowser().getLoginPage()).permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .csrf().disable()
-
-                // smsCodeAuthenticationSecurityConfig配置类中的所有配置加进来
-            .apply(smsCodeAuthenticationSecurityConfig);
+                .antMatchers(
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                        securityProperties.getBrowser().getLoginPage())
+                    .permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .csrf().disable();
     }
 
     @Bean

@@ -35,6 +35,7 @@ public class AppAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                 AuthenticationException exception) throws IOException, ServletException {
         logger.info("登录失败 onAuthenticationFailure");
+
         if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
@@ -42,7 +43,6 @@ public class AppAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
         } else {
             super.onAuthenticationFailure(request, response, exception);
         }
-
 
     }
 

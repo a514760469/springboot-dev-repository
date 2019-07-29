@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 短信登录请求过滤器
  * 代码仿照 UsernamePasswordAuthenticationFilter
  */
 //@Component
@@ -48,7 +49,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         }
 
         mobile = mobile.trim();
-
+        // 短信token
         SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken(mobile);
 
         // Allow subclasses to set the "details" property

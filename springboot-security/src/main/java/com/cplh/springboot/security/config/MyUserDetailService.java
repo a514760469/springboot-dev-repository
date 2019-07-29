@@ -26,6 +26,7 @@ public class MyUserDetailService implements UserDetailsService {
 
         logger.info("登录用户名：" + username);
 
+        // 使用DAO获取数据库密码  模拟操作
         String encodePassword = passwordEncoder.encode("123456");
         logger.info("数据库密码是：{}", encodePassword);
 
