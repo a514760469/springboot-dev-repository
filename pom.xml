@@ -21,6 +21,8 @@
         <module>springboot-security</module>
         <module>springboot-web-01</module>
         <module>springboot-mybatis</module>
+        <module>springboot-profile</module>
+        <module>springboot-cache</module>
     </modules>
 
     <dependencyManagement>
