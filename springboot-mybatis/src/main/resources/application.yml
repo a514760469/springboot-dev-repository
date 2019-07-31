@@ -9,3 +9,8 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
 mybatis:
     mapper-locations: classpath:mappers/*.xml
+    configuration:
+        map-underscore-to-camel-case: true
+logging:
+    level:
+        com.cplh.springboot.mybatis.dao: debug

@@ -10,13 +10,13 @@
 	<context id="default" targetRuntime="MyBatis3">
 
 		<property name="javaFileEncoding" value="UTF-8"/>
-		<property name="beginningDelimiter" value="`" />
-		<property name="endingDelimiter" value="`" />
-		<property name="mergeable" value="false"/>
+<!--		<property name="beginningDelimiter" value="`" />-->
+<!--		<property name="endingDelimiter" value="`" />-->
+<!--		<property name="mergeable" value="false"/>-->
 
-		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-			<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
-		</plugin>
+<!--		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">-->
+<!--			<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>-->
+<!--		</plugin>-->
 
 		<!-- optional，旨在创建class时，对注释进行控制 -->
 		<commentGenerator>
@@ -69,20 +69,31 @@
 		</javaClientGenerator>
 
 		<!-- 配置表格映射 -->
-<!--		<table tableName="student" domainObjectName="Student" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+		<table tableName="student" domainObjectName="Student"
+			   enableCountByExample="false"
+			   enableUpdateByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   selectByExampleQueryId="false"/>
 
-<!--		<table tableName="cls" domainObjectName="Cls" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+		<table tableName="cls" domainObjectName="Cls"
+			   enableCountByExample="false"
+			   enableUpdateByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   selectByExampleQueryId="false"/>
+
 		<!--<table tableName="%">
 			<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
 		</table>-->
-		<table schema="general" tableName="T_USER" domainObjectName="User"
+		<!--<table schema="general" tableName="T_USER" domainObjectName="User"
 			   enableDeleteByExample="false" enableSelectByExample="false"
 			   enableUpdateByExample="false"
 			   enableCountByExample="false" enableDeleteByPrimaryKey="true"
 			   enableUpdateByPrimaryKey="true" enableInsert="true"
 			   enableSelectByPrimaryKey="true">
 			<property name="useActualColumnNames" value="false"/>
-		</table>
+		</table>-->
 
 	</context>
 
