@@ -24,6 +24,7 @@
         <module>springboot-mybatis</module>
         <module>springboot-profile</module>
         <module>springboot-cache</module>
+        <module>springboot-dubbo</module>
     </modules>
 
     <dependencyManagement>
