@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -51,6 +52,13 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    /**
+     * 社交登录配置
+     */
+    @Autowired
+    SpringSocialConfigurer springSocialConfigurer;
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -61,6 +69,8 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
         http.apply(smsCodeAuthenticationSecurityConfig)
                 .and()
             .apply(validateCodeSecurityConfig)
+                .and()
+            .apply(springSocialConfigurer)
                 .and()
             // 浏览器特有配置
             // remember-me 功能

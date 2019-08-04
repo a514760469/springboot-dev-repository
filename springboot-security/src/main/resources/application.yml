@@ -14,6 +14,10 @@ application:
         browser:
 #            login-page: /demo-siginIn.html
             loginType: JSON
+        social:
+            qq:
+                app-id: 1
+                app-secret: 1
 #        code:
 #            image:
 #                length: 6
