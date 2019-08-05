@@ -24,6 +24,7 @@
     <modules>
         <module>consumer-user</module>
         <module>provider-ticket</module>
+        <module>dubbo-api</module>
     </modules>
 
     <repositories>
