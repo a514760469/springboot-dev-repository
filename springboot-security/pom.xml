@@ -51,7 +51,7 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
 
-        <!-- social 第三方登录 -->
+        <!-- spring social 第三方登录 -->
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-core</artifactId>

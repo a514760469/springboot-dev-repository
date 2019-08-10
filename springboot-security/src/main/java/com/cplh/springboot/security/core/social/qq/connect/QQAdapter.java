@@ -36,7 +36,7 @@ public class QQAdapter implements ApiAdapter<QQ> {
     }
 
     /**
-     * 更新个人信息 QQ 没有
+     * 更新个人信息 QQ 没有, 所以不实现
      * @param api
      * @param message
      */

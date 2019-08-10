@@ -26,11 +26,11 @@
             <version>2.2.0</version>
         </dependency>
            -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator</artifactId>
             <version>1.3.2</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>

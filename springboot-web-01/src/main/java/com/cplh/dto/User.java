@@ -1,5 +1,6 @@
 package com.cplh.dto;
 
+import com.cplh.validate.MyConstraint;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -23,6 +24,7 @@ public class User {
     @JsonView(UserSimpleView.class)
     private String id;
 
+    @MyConstraint(message = "username 验证失败")
     @JsonView(UserSimpleView.class)
     private String username;
 

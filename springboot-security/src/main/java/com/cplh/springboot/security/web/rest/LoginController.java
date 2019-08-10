@@ -3,6 +3,7 @@ package com.cplh.springboot.security.web.rest;
 import com.cplh.springboot.security.config.constant.SecurityConstants;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.support.SimpleResponse;
+import com.cplh.springboot.security.support.SocialUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,5 +56,14 @@ public class LoginController {
         }
         return new SimpleResponse("访问的服务需要身份认证, 引导用户去登录页");
     }
+
+
+    @GetMapping("/social/user")
+    public SocialUserInfo getSocialUserInfo() {
+        SocialUserInfo socialUserInfo = new SocialUserInfo();
+
+        return socialUserInfo;
+    }
+
 
 }

@@ -18,6 +18,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @DeleteMapping("/{id:\\d+}")
+    public void delete(@PathVariable("id") String id) {
+        System.out.println("delete: " + id);
+    }
     /**
      *
      * @param user
@@ -37,7 +42,7 @@ public class UserController {
     /**
      *
      * @param user
-     * @param bindingResult Valid验证不满足会记录到bindingResult中
+     * @param bindingResult @Valid验证不满足会记录到bindingResult中
      * @return
      */
     @PutMapping("/{id:\\d+}")
@@ -47,7 +52,7 @@ public class UserController {
             bindingResult.getAllErrors().forEach(err -> {
                 FieldError fieldError = (FieldError) err;
                 String message = fieldError.getField() + " " + err.getDefaultMessage();
-                System.out.println(message);
+                System.err.println(message);
             });
         }
         System.out.println(ReflectionToStringBuilder.toString(user, ToStringStyle.MULTI_LINE_STYLE));

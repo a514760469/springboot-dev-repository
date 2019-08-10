@@ -15,6 +15,10 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
     @Autowired
     SecurityProperties securityProperties;
 
+    /**
+     * 将QQConnectionFactory注入容器
+     * @return
+     */
     @Override
     protected ConnectionFactory<?> createConnectionFactory() {
         QQProperties qqConfig = securityProperties.getSocial().getQq();
