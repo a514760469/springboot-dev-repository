@@ -88,7 +88,8 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getLoginPage(),
-                        securityProperties.getBrowser().getSignUpUrl()
+                        securityProperties.getBrowser().getSignUpUrl(),
+                        "/user/regist"
                     )
                     .permitAll()
                 .anyRequest().authenticated()

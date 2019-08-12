@@ -2,13 +2,13 @@ package com.cplh.springboot.security.support;
 
 public class SocialUserInfo {
 
-    private String providerId;
+    private String providerId;// 哪一个第三方
 
-    private String providerUserId;
+    private String providerUserId;// openid
 
-    private String nickname;
+    private String nickname;// 昵称
 
-    private String headImg;
+    private String headImg;// 头像
 
     public String getProviderId() {
         return providerId;
