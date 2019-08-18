@@ -24,7 +24,7 @@ public class User {
     @JsonView(UserSimpleView.class)
     private String id;
 
-    @MyConstraint(message = "username 验证失败")
+    @MyConstraint(message = "这是一个测试, username 验证失败")
     @JsonView(UserSimpleView.class)
     private String username;
 

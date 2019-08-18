@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * 校验器
- * 这个类型不需要加 @Component
+ * 这个类型不需要加 @Component 也会被注入容器
  */
 public class MyConstraintValidator
         implements ConstraintValidator<MyConstraint, Object> {
@@ -25,7 +25,7 @@ public class MyConstraintValidator
     }
 
     /**
-     * 验证
+     * 验证自定义注解 MyConstraint
      * @param value
      * @param context
      * @return  false代表验证失败
