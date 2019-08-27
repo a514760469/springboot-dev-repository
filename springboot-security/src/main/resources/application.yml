@@ -1,23 +1,26 @@
 server:
-    port: 8080
+    port: 80
 spring:
     datasource:
-        password: root
-        driver-class-name: org.gjt.mm.mysql.Driver
-        username: 123
+        driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/spring_cache?useSSL=false&useUnicode=true&characterEncoding=utf8
+        username: root
+        password: 123
 
 
-
+# 应用程序相关配置
 application:
     security:
         browser:
+            signUpUrl: /demo-siginUp.html
 #            login-page: /demo-siginIn.html
             loginType: JSON
         social:
             qq:
-                app-id: 1
-                app-secret: 1
+#                providerId: ""
+                app-id: 101748177
+                app-secret: da0963e664e7cf496e996a9178e1e827
+#            filterProcessesUrl: /callback
 #        code:
 #            image:
 #                length: 6

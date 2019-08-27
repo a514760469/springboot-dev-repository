@@ -54,6 +54,9 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
 
     /**
      * 社交登录配置
+     * 过滤器链上增加相应的过滤器
+     * 默认拦截 /auth/
+     *  /auth/{providerId}
      */
     @Autowired
     SpringSocialConfigurer springSocialConfigurer;
@@ -84,7 +87,10 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        securityProperties.getBrowser().getLoginPage())
+                        securityProperties.getBrowser().getLoginPage(),
+                        securityProperties.getBrowser().getSignUpUrl(),
+                        "/user/regist"
+                    )
                     .permitAll()
                 .anyRequest().authenticated()
                 .and()

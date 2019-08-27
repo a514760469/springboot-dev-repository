@@ -1,6 +1,5 @@
 package com.cplh.springboot.security.core.social.qq.api;
 
-
 public class QQUserInfo {
 
     private int ret;// 	返回码
@@ -19,7 +18,31 @@ public class QQUserInfo {
 
     private String figureurl_qq_2;//	大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有。
 
-    private String gender;//
+    private String figureurl_qq;
+
+    private String figureurl_type;
+
+    private String gender;// 性别
+
+    private String is_lost;
+
+    private String province;// 省
+
+    private String city;// 城市
+
+    private String year;// 年
+
+    private String constellation;// 星座
+
+    private String is_yellow_vip;
+
+    private String vip;
+
+    private String yellow_vip_level;
+
+    private String level;
+
+    private String is_yellow_year_vip;
 
     private String openId;
 
@@ -101,6 +124,102 @@ public class QQUserInfo {
 
     public void setOpenId(String openId) {
         this.openId = openId;
+    }
+
+    public String getFigureurl_qq() {
+        return figureurl_qq;
+    }
+
+    public void setFigureurl_qq(String figureurl_qq) {
+        this.figureurl_qq = figureurl_qq;
+    }
+
+    public String getFigureurl_type() {
+        return figureurl_type;
+    }
+
+    public void setFigureurl_type(String figureurl_type) {
+        this.figureurl_type = figureurl_type;
+    }
+
+    public String getIs_lost() {
+        return is_lost;
+    }
+
+    public void setIs_lost(String is_lost) {
+        this.is_lost = is_lost;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
+    }
+
+    public String getIs_yellow_vip() {
+        return is_yellow_vip;
+    }
+
+    public void setIs_yellow_vip(String is_yellow_vip) {
+        this.is_yellow_vip = is_yellow_vip;
+    }
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
+        this.vip = vip;
+    }
+
+    public String getYellow_vip_level() {
+        return yellow_vip_level;
+    }
+
+    public void setYellow_vip_level(String yellow_vip_level) {
+        this.yellow_vip_level = yellow_vip_level;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getIs_yellow_year_vip() {
+        return is_yellow_year_vip;
+    }
+
+    public void setIs_yellow_year_vip(String is_yellow_year_vip) {
+        this.is_yellow_year_vip = is_yellow_year_vip;
     }
 
     @Override

@@ -14,6 +14,9 @@ import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
+/**
+ * 这个类应该在Demo项目里
+ */
 @Component("userDetailsService")
 public class MyUserDetailService implements UserDetailsService, SocialUserDetailsService {
 
