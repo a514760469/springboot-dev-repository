@@ -12,9 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class StudentMapperTest {
 
     @Autowired
-    UserMapper userMapper;
-
-    @Autowired
     StudentMapper studentMapper;
 
     @Test
@@ -27,7 +24,10 @@ public class StudentMapperTest {
 
 
     @Test
-    public void testAdd() {
+    public void testSelect() {
+
+        System.out.println(studentMapper.selectByPrimaryKey(5));
+
     }
 
 
