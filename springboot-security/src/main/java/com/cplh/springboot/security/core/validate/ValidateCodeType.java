@@ -1,6 +1,6 @@
 package com.cplh.springboot.security.core.validate;
 
-import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 
 public enum ValidateCodeType {
 

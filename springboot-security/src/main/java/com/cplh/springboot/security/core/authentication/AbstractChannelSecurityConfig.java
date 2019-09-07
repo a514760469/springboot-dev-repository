@@ -2,7 +2,7 @@ package com.cplh.springboot.security.core.authentication;
 
 import com.cplh.springboot.security.authentication.AppAuthenticationFailureHandler;
 import com.cplh.springboot.security.authentication.AppAuthenticationSuccessHandler;
-import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;

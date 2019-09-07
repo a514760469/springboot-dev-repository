@@ -1,4 +1,4 @@
-package com.cplh.springboot.security.config.constant;
+package com.cplh.springboot.security.core.properties.constant;
 
 
 public class SecurityConstants {
@@ -47,6 +47,6 @@ public class SecurityConstants {
     /**
      * 默认session失效跳转路径
      */
-    public static final String DEFAULT_SESSION_INVALID_URL = "session-invalid.html";
+    public static final String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
 
 }

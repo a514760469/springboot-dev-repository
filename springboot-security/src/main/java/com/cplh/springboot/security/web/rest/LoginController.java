@@ -1,6 +1,6 @@
 package com.cplh.springboot.security.web.rest;
 
-import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.support.SimpleResponse;
 import com.cplh.springboot.security.support.SocialUserInfo;
@@ -56,8 +56,7 @@ public class LoginController {
             logger.info("引发跳转的请求是：{}", target);
             // 如果引发跳转的请求是一个html
             if (StringUtils.endsWithIgnoreCase(target,".html")) {
-                redirectStrategy.sendRedirect(request, response,
-                        securityProperties.getBrowser().getLoginPage());
+                redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
             }
         }
         return new SimpleResponse("访问的服务需要身份认证, 引导用户去登录页");

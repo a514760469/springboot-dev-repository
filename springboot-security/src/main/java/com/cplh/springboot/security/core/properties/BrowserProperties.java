@@ -1,8 +1,10 @@
 package com.cplh.springboot.security.core.properties;
 
-import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 
 public class BrowserProperties {
+
+    private SessionProperties session = new SessionProperties();
 
     private String signUpUrl = "/signUp.html";
 
@@ -42,5 +44,9 @@ public class BrowserProperties {
 
     public void setSignUpUrl(String signUpUrl) {
         this.signUpUrl = signUpUrl;
+    }
+
+    public SessionProperties getSession() {
+        return session;
     }
 }

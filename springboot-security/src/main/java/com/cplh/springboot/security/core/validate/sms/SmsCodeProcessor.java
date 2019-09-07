@@ -1,6 +1,6 @@
 package com.cplh.springboot.security.core.validate.sms;
 
-import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import com.cplh.springboot.security.core.validate.ValidateCode;
 import com.cplh.springboot.security.core.validate.impl.AbstractValidateCodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;

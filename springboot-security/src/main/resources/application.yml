@@ -18,6 +18,7 @@ application:
             signUpUrl: /demo-siginUp.html
 #            login-page: /demo-siginIn.html
             loginType: JSON
+
         social:
             qq:
 #                providerId: ""

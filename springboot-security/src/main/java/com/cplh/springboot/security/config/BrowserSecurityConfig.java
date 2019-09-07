@@ -1,14 +1,11 @@
 package com.cplh.springboot.security.config;
 
-import com.cplh.springboot.security.authentication.AppAuthenticationFailureHandler;
-import com.cplh.springboot.security.authentication.AppAuthenticationSuccessHandler;
-import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import com.cplh.springboot.security.core.authentication.AbstractChannelSecurityConfig;
 import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.validate.ValidateCodeFilter;
 import com.cplh.springboot.security.core.validate.ValidateCodeSecurityConfig;
-import com.cplh.springboot.security.session.AppSessionExpiredSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -24,16 +23,10 @@ import javax.sql.DataSource;
  * 浏览器Security配置
  */
 @Configuration
-public class WebSecurityConfig extends AbstractChannelSecurityConfig {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     SecurityProperties securityProperties;
-
-    @Autowired
-    AppAuthenticationSuccessHandler appAuthenticationSuccessHandler;
-
-    @Autowired
-    AppAuthenticationFailureHandler appAuthenticationFailureHandler;
 
     @Autowired
     ValidateCodeFilter validateCodeFilter;
@@ -62,6 +55,11 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     SpringSocialConfigurer springSocialConfigurer;
 
+    @Autowired
+    SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
+    @Autowired
+    InvalidSessionStrategy invalidSessionStrategy;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -84,10 +82,10 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
                 .userDetailsService(userDetailsService)
                 .and()
             .sessionManagement()
-                .invalidSessionUrl("/session/invalid")  // 当session失效的时候跳转的地址
-                .maximumSessions(1)                     // session最大数量
-                .maxSessionsPreventsLogin(true)         // 当session达到最大数量时阻止登录
-                .expiredSessionStrategy(new AppSessionExpiredSessionStrategy()) // session失效策略
+                .invalidSessionStrategy(invalidSessionStrategy)
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) // session最大数量, 设置为1 后边登录会覆盖前边
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin()) // 当session达到最大数量时阻止登录, 默认是踢掉已登录用户
+                .expiredSessionStrategy(sessionInformationExpiredStrategy) // session失效策略
                 .and()
                 .and()
             .authorizeRequests()
@@ -97,7 +95,9 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getLoginPage(),
                         securityProperties.getBrowser().getSignUpUrl(),
-                        "/user/regist", "/session/invalid"
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
+                        "/user/regist"
                     )
                     .permitAll()
                 .anyRequest().authenticated()

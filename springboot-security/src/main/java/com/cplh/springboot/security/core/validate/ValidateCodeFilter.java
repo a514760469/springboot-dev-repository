@@ -1,7 +1,7 @@
 package com.cplh.springboot.security.core.validate;
 
 import com.cplh.springboot.security.authentication.AppAuthenticationFailureHandler;
-import com.cplh.springboot.security.config.constant.SecurityConstants;
+import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
