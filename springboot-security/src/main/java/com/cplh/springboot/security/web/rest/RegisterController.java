@@ -18,7 +18,8 @@ public class RegisterController {
     @PostMapping("/user/regist")
     public User regist(User user, HttpServletRequest request) {
         // 不管注册用户 还是绑定用户都会拿到一个用户唯一标识
-        String userId = user.getUsername();
+        String userId = user.getUsername();// 这里以用户名作为userId
+        // 注册或绑定的逻辑... 数据库的增删改查而已
         providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
         return user;
     }

@@ -38,4 +38,15 @@ public class SecurityConstants {
      * 验证短信验证码时，http请求中默认的携带短信验证码信息的参数的名称
      */
     public static final String DEFAULT_PARAMETER_NAME_CODE_SMS = "smsCode";
+
+    /**
+     * 发送短息验证码时，传递手机号的参数名称
+     */
+    public static final String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
+
+    /**
+     * 默认session失效跳转路径
+     */
+    public static final String DEFAULT_SESSION_INVALID_URL = "session-invalid.html";
+
 }

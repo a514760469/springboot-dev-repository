@@ -8,6 +8,7 @@ import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthentica
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.validate.ValidateCodeFilter;
 import com.cplh.springboot.security.core.validate.ValidateCodeSecurityConfig;
+import com.cplh.springboot.security.session.AppSessionExpiredSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -82,6 +83,13 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
+            .sessionManagement()
+                .invalidSessionUrl("/session/invalid")  // 当session失效的时候跳转的地址
+                .maximumSessions(1)                     // session最大数量
+                .maxSessionsPreventsLogin(true)         // 当session达到最大数量时阻止登录
+                .expiredSessionStrategy(new AppSessionExpiredSessionStrategy()) // session失效策略
+                .and()
+                .and()
             .authorizeRequests()
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
@@ -89,7 +97,7 @@ public class WebSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getLoginPage(),
                         securityProperties.getBrowser().getSignUpUrl(),
-                        "/user/regist"
+                        "/user/regist", "/session/invalid"
                     )
                     .permitAll()
                 .anyRequest().authenticated()

@@ -1,5 +1,6 @@
 package com.cplh.springboot.security.core.validate.sms;
 
+import com.cplh.springboot.security.config.constant.SecurityConstants;
 import com.cplh.springboot.security.core.validate.ValidateCode;
 import com.cplh.springboot.security.core.validate.impl.AbstractValidateCodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
 	
 	@Override
 	protected void send(ServletWebRequest request, ValidateCode validateCode) throws Exception {
-		String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "mobile");
+		String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(),
+				SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE);
+
 		smsCodeSender.send(mobile, validateCode.getCode());
 	}
 

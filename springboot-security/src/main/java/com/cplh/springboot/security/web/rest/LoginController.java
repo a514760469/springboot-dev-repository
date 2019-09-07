@@ -64,7 +64,7 @@ public class LoginController {
     }
 
     /**
-     * 注册页发这个请求获取用户信息
+     * 在注册页发这个请求获取用户信息
      * 获取SocialUserInfo 从session里拿
      * @param request
      * @return
@@ -81,5 +81,16 @@ public class LoginController {
         return socialUserInfo;
     }
 
+    /**
+     * session失效跳转到这
+     * @return
+     */
+    @GetMapping("/session/invalid")
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public SimpleResponse sessionInvalid() {
+
+        String msg = "session失效";
+        return new SimpleResponse(msg);
+    }
 
 }
