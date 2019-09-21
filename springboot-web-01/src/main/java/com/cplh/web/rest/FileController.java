@@ -34,7 +34,7 @@ public class FileController {
             throws IOException {
 
         try (InputStream is = new FileInputStream(new File(folder, id + ".txt"));
-            OutputStream os = response.getOutputStream()){
+             OutputStream os = response.getOutputStream()) {
 
             response.setContentType("application/x-download");
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=test.txt");

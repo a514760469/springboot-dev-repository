@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@Component
+//@Component
 public class TimeFilter extends HttpFilter {
 
     @Override

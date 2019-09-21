@@ -18,11 +18,11 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
             <version>1.2.1.RELEASE</version>
-        </dependency>
+        </dependency>-->
 
 
 
@@ -55,6 +55,10 @@
             <version>${spring.social.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
