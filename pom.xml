@@ -17,6 +17,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <properties>
+        <app.version>1.0-SNAPSHOT</app.version>
+    </properties>
+
+
     <modules>
         <module>springboot-security</module>
         <module>springboot-web-01</module>
@@ -50,15 +55,15 @@
 
     </dependencyManagement>
 
-
-    <build>
+    <!-- 这个插件需要每个项目里都有mainClass -->
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 
 </project>

@@ -22,9 +22,9 @@
     </properties>
 
     <modules>
-        <module>consumer-user</module>
-        <module>provider-ticket</module>
         <module>dubbo-api</module>
+        <module>provider-ticket</module>
+        <module>consumer-user</module>
     </modules>
 
     <repositories>
@@ -45,13 +45,13 @@
 
     </dependencies>
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>

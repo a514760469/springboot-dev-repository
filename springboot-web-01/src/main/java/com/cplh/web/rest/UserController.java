@@ -2,7 +2,6 @@ package com.cplh.web.rest;
 
 import com.cplh.dto.User;
 import com.cplh.dto.UserQueryCondition;
-import com.cplh.exception.UserNotExistException;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -13,7 +12,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 

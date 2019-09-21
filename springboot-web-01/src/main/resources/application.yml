@@ -1,8 +1,40 @@
+server:
+    port: 80
+    servlet:
+        session:
+            timeout: 600    # 单位是秒，但是不能小于1分钟
+
 spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/spring_cache?useSSL=false&useUnicode=true&characterEncoding=utf8
         username: root
         password: 123
-        url: jdbc:mysql://localhost:3306/spring_cache?useSSL=false&useUnicode=true&characterEncoding=utf8
-    jpa:
-        database: mysql
+    session:
+        store-type: redis       # 使用redis存储session
+    redis:
+        host: localhost
+        password: 123456
+
+
+
+# 应用程序相关配置
+application:
+    security:
+        browser:
+            signUpUrl: /demo-siginUp.html
+            signOutUrl: /logout.html
+            #            login-page: /demo-siginIn.html
+            loginType: JSON
+
+        social:
+            qq:
+                #                providerId: ""
+                app-id: 101762186
+                app-secret: 48c877f0058aa19cbe98321ffae76001
+#            filterProcessesUrl: /callback
+#        code:
+#            image:
+#                length: 6
+#                width: 100
+#                url: /user*
