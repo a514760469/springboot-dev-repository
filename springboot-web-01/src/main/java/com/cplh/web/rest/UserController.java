@@ -7,6 +7,8 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @GetMapping("/me")
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+        return user;
+    }
+
 
     /**
      * rest删除
@@ -103,6 +111,8 @@ public class UserController {
         User user = new User();
         user.setUsername("tom");
         return user;
-
     }
+
+
+
 }

@@ -19,16 +19,14 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
         implements ValidateCodeProcessor {
 
     /**
-     * 操作session的工具类
-     */
-    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
-
-    /**
      * 依赖查找
      * spring启动时查找所有 {@link ValidateCodeGenerator} 接口的实现。以bean的名称为key放到map中
      */
     @Autowired
     private Map<String, ValidateCodeGenerator> validateCodeGenerators;
+
+    @Autowired
+    private ValidateCodeRepository validateCodeRepository;
 
 
     /**
@@ -54,9 +52,11 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
     public void validate(ServletWebRequest webRequest) {
 
         ValidateCodeType validateCodeType = getValidateCodeType(webRequest);
-        String sessionKey = getSessionKey(webRequest);
+//        String sessionKey = getSessionKey(webRequest);
+
         // Session 中的验证码
-        C codeInSession = (C) sessionStrategy.getAttribute(webRequest, sessionKey);
+//        C codeInSession = (C) sessionStrategy.getAttribute(webRequest, sessionKey);
+        C codeInSession = (C) validateCodeRepository.get(webRequest, validateCodeType);
         // request 中的验证码
         String codeInRequest;
         try {
@@ -76,7 +76,8 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
         }
 
         if(codeInSession.isExpired()){
-            sessionStrategy.removeAttribute(webRequest, sessionKey);
+//            sessionStrategy.removeAttribute(webRequest, sessionKey);
+            validateCodeRepository.remove(webRequest, validateCodeType);
             throw new ValidateCodeException("验证码已过期");
         }
 
@@ -84,27 +85,8 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
             throw new ValidateCodeException("验证码不匹配");
         }
 
-        sessionStrategy.removeAttribute(webRequest, sessionKey);
-    }
-
-    /**
-     * 构建验证码放入session时的key
-     * @param webRequest
-     * @return
-     */
-    private String getSessionKey(ServletWebRequest webRequest) {
-        return SESSION_KEY_PREFIX + getValidateCodeType(webRequest).toString().toUpperCase();
-    }
-
-    /**
-     * 根据请求的url获取校验码的类型
-     * @param webRequest
-     * @return ValidateCodeType枚举类
-     */
-    private ValidateCodeType getValidateCodeType(ServletWebRequest webRequest) {
-        // 截取当前类 CodeProcessor 之前的名称
-        String type = StringUtils.substringBefore(getClass().getSimpleName(), "CodeProcessor");
-        return ValidateCodeType.valueOf(type.toUpperCase());
+        validateCodeRepository.remove(webRequest, validateCodeType);
+//        sessionStrategy.removeAttribute(webRequest, sessionKey);
     }
 
     /**
@@ -115,9 +97,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
      */
     private void save(ServletWebRequest request, C validateCode) {
         ValidateCode code = new ValidateCode(validateCode.getCode(), validateCode.getExpireTime());
-
-        sessionStrategy.setAttribute(request,
-                SESSION_KEY_PREFIX + getProcessorType(request).toUpperCase(), code);
+        validateCodeRepository.save(request, code, getValidateCodeType(request));
     }
 
     /**
@@ -133,12 +113,23 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
     }
 
     /**
-     * 根据请求的url获取校验码的类型     /code/的后半段
+     * 根据请求的url获取校验码的类型     /code/的后半段  sms 或 image
      * @param request
      * @return
      */
     private String getProcessorType(ServletWebRequest request) {
         return StringUtils.substringAfter(request.getRequest().getRequestURI(), "/code/");
+    }
+
+    /**
+     * 根据请求的url获取校验码的类型
+     * @param webRequest
+     * @return ValidateCodeType枚举类
+     */
+    private ValidateCodeType getValidateCodeType(ServletWebRequest webRequest) {
+        // 截取当前类 CodeProcessor 之前的名称
+        String type = StringUtils.substringBefore(getClass().getSimpleName(), "CodeProcessor");
+        return ValidateCodeType.valueOf(type.toUpperCase());
     }
 
     /**

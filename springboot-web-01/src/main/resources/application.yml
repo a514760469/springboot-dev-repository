@@ -19,7 +19,6 @@ spring:
         password: 123456
 
 
-
 # 应用程序相关配置
 application:
     security:
@@ -42,5 +41,9 @@ application:
 #                width: 100
 #                url: /user*
 
-
-
+security:
+    oauth2:
+        client:
+            client-id: app1
+            client-secret: app1secret
+    ignored: /oauth/authorize
