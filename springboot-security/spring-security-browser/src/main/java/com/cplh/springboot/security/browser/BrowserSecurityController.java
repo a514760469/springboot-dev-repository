@@ -1,6 +1,6 @@
 package com.cplh.springboot.security.browser;
 
-import com.cplh.springboot.security.browser.support.SimpleResponse;
+import com.cplh.springboot.security.core.support.SimpleResponse;
 import com.cplh.springboot.security.browser.support.SocialUserInfo;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -92,4 +94,8 @@ public class BrowserSecurityController {
         return new SimpleResponse(msg);
     }
 
+    @GetMapping("/me")
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+        return user;
+    }
 }

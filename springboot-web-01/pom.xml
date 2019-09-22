@@ -20,10 +20,21 @@
 
     <dependencies>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.cplh</groupId>
             <artifactId>spring-security-browser</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.cplh</groupId>
+            <artifactId>spring-security-app</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
         </dependency>
 
         <dependency>
@@ -41,7 +52,10 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

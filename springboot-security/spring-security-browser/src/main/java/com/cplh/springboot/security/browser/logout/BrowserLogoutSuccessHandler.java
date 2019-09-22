@@ -1,6 +1,6 @@
 package com.cplh.springboot.security.browser.logout;
 
-import com.cplh.springboot.security.browser.support.SimpleResponse;
+import com.cplh.springboot.security.core.support.SimpleResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

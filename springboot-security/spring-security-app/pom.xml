@@ -24,7 +24,7 @@
         -->
         <dependency>
             <groupId>com.cplh</groupId>
-            <artifactId>spring-security-core</artifactId>
+            <artifactId>security-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

@@ -71,7 +71,7 @@
 
 
     <modules>
-        <module>spring-security-core</module>
+        <module>security-core</module>
         <module>spring-security-browser</module>
         <module>spring-security-app</module>
         <module>spring-security-demo</module>

@@ -117,10 +117,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
             .csrf().disable();
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     /**
      * 持久化token
