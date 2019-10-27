@@ -1,5 +1,6 @@
 package com.cplh.springboot.app.config;
 
+import com.cplh.springboot.app.social.openid.OpenIdAuthenticationSecurityConfig;
 import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
@@ -33,6 +34,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    @Autowired
+    private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
 
     @Autowired
     private SpringSocialConfigurer springSocialConfigurer;
@@ -58,21 +61,23 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
             .apply(springSocialConfigurer)
                 .and()
+            .apply(openIdAuthenticationSecurityConfig)
+                .and()
             .authorizeRequests()
             .antMatchers(
                     SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                     SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                    SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
                     SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                     securityProperties.getBrowser().getLoginPage(),
                     securityProperties.getBrowser().getSignUpUrl(),
                     securityProperties.getBrowser().getSignOutUrl(),
-                    securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
-                    securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                    "/user/regist"
+                    securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
+                    "/user/regist", "/social/signUp"
             )
             .permitAll()
             .anyRequest().authenticated()
             .and()
-            .csrf().disable();
+        .csrf().disable();
     }
 }

@@ -1,4 +1,4 @@
-package com.cplh.springboot.security.browser.support;
+package com.cplh.springboot.security.core.support;
 
 public class SocialUserInfo {
 

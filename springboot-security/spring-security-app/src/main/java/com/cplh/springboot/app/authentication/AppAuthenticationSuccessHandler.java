@@ -1,9 +1,6 @@
 package com.cplh.springboot.app.authentication;
 
-import com.cplh.springboot.security.core.properties.LoginType;
-import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +32,6 @@ public class AppAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private SecurityProperties securityProperties;
 
     @Autowired
     private ClientDetailsService clientDetailsService;

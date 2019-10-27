@@ -1,7 +1,7 @@
 package com.cplh.springboot.security.browser;
 
 import com.cplh.springboot.security.core.support.SimpleResponse;
-import com.cplh.springboot.security.browser.support.SocialUserInfo;
+import com.cplh.springboot.security.core.support.SocialUserInfo;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import org.slf4j.Logger;

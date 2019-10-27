@@ -1,6 +1,7 @@
 package com.cplh.web.rest;
 
 import com.cplh.dto.User;
+import com.cplh.springboot.app.social.AppSignUpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,14 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 public class RegisterController {
 
     @Autowired
-    ProviderSignInUtils providerSignInUtils;
+    private ProviderSignInUtils providerSignInUtils;
+
+    @Autowired
+    private AppSignUpUtils appSignUpUtils;
 
     @PostMapping("/user/regist")
     public User regist(User user, HttpServletRequest request) {
         // 不管注册用户 还是绑定用户都会拿到一个用户唯一标识
         String userId = user.getUsername();// 这里以用户名作为userId
         // 注册或绑定的逻辑... 数据库的增删改查而已
-        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+//        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        appSignUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
         return user;
     }
 

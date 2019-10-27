@@ -11,5 +11,11 @@
 
     <artifactId>spring-security-demo</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.cplh</groupId>
+            <artifactId>spring-security-app</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

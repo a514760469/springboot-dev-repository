@@ -46,4 +46,4 @@ security:
         client:
             client-id: app1
             client-secret: app1secret
-    ignored: /oauth/authorize
+#    ignored: /oauth/authorize
