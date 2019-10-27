@@ -3,6 +3,9 @@ package com.cplh.springboot.security.core.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * 安全模块顶级配置
+ */
 @ConfigurationProperties(prefix = "application.security", ignoreInvalidFields = true)
 public class SecurityProperties {
 
@@ -14,6 +17,9 @@ public class SecurityProperties {
 
     // 社交相关配置
     private SocialProperties social = new SocialProperties();
+
+    // oauth
+    private OAuth2Properties oauth2 = new OAuth2Properties();
 
     public SocialProperties getSocial() {
         return social;
@@ -39,4 +45,11 @@ public class SecurityProperties {
         this.code = code;
     }
 
+    public OAuth2Properties getOauth2() {
+        return oauth2;
+    }
+
+    public void setOauth2(OAuth2Properties oauth2) {
+        this.oauth2 = oauth2;
+    }
 }

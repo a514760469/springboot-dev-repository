@@ -13,10 +13,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    protected AuthenticationSuccessHandler appAuthenticationSuccessHandler;
+    protected AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    protected AuthenticationFailureHandler appAuthenticationFailureHandler;
+    protected AuthenticationFailureHandler authenticationFailureHandler;
 
 
     protected void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception {
@@ -24,8 +24,8 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
         http.formLogin()
             .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)      // 表单登录的登录页
             .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
-            .successHandler(appAuthenticationSuccessHandler)
-            .failureHandler(appAuthenticationFailureHandler);
+            .successHandler(authenticationSuccessHandler)
+            .failureHandler(authenticationFailureHandler);
     }
 
 }

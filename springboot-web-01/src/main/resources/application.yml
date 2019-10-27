@@ -33,6 +33,8 @@ application:
                 #                providerId: ""
                 app-id: 101762186
                 app-secret: 48c877f0058aa19cbe98321ffae76001
+        oauth2:
+            client: [{client-id: app1, secret: app1secret}, {client-id: test, secret: test}]
 
 #            filterProcessesUrl: /callback
 #        code:
@@ -41,9 +43,4 @@ application:
 #                width: 100
 #                url: /user*
 
-security:
-    oauth2:
-        client:
-            client-id: app1
-            client-secret: app1secret
-#    ignored: /oauth/authorize
+
