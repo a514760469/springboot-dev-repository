@@ -30,6 +30,7 @@
         <module>springboot-profile</module>
         <module>springboot-cache</module>
         <module>springboot-dubbo</module>
+        <module>springboot-elasticsearch</module>
     </modules>
     
 
