@@ -1,8 +1,8 @@
 package com.gds.springboot.rabbitmq.rabbit.consumer;
 
-import com.neo.model.User;
-import com.neo.rabbit.message.convert.JPEGMessageConverter;
-import com.neo.rabbit.message.convert.TextMessageConverter;
+import com.gds.springboot.rabbitmq.model.User;
+import com.gds.springboot.rabbitmq.rabbit.message.convert.JPEGMessageConverter;
+import com.gds.springboot.rabbitmq.rabbit.message.convert.TextMessageConverter;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

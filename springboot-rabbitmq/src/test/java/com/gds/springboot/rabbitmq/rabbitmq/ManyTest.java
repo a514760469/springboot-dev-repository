@@ -1,7 +1,7 @@
 package com.gds.springboot.rabbitmq.rabbitmq;
 
-import com.neo.rabbit.many.NeoSender;
-import com.neo.rabbit.many.NeoSender2;
+import com.gds.springboot.rabbitmq.rabbit.many.NeoSender;
+import com.gds.springboot.rabbitmq.rabbit.many.NeoSender2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

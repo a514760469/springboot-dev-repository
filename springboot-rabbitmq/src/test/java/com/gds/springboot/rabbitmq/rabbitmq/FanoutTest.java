@@ -1,6 +1,6 @@
 package com.gds.springboot.rabbitmq.rabbitmq;
 
-import com.neo.rabbit.fanout.FanoutSender;
+import com.gds.springboot.rabbitmq.rabbit.fanout.FanoutSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

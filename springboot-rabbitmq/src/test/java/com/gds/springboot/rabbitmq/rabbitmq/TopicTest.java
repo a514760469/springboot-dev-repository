@@ -1,6 +1,6 @@
 package com.gds.springboot.rabbitmq.rabbitmq;
 
-import com.neo.rabbit.topic.TopicSender;
+import com.gds.springboot.rabbitmq.rabbit.topic.TopicSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
