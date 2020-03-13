@@ -32,6 +32,7 @@
         <module>springboot-dubbo</module>
         <module>springboot-elasticsearch</module>
         <module>springboot-rabbitmq</module>
+        <module>springboot-web-rate</module>
     </modules>
     
 
