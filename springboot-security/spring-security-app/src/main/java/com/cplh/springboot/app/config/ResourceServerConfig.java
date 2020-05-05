@@ -2,6 +2,7 @@ package com.cplh.springboot.app.config;
 
 import com.cplh.springboot.app.social.openid.OpenIdAuthenticationSecurityConfig;
 import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.cplh.springboot.security.core.authorize.AuthorizeConfigManager;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import com.cplh.springboot.security.core.validate.ValidateCodeFilter;
@@ -46,6 +47,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     protected AuthenticationFailureHandler appAuthenticationFailureHandler;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -76,8 +80,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                     "/user/regist", "/social/signUp"
             )
             .permitAll()
-            .anyRequest().authenticated()
+            .anyRequest()
+            .authenticated()
             .and()
         .csrf().disable();
+
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 }

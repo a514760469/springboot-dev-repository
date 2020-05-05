@@ -29,18 +29,8 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         logger.info("表单登录用户名：" + username);
-
-        // 使用DAO获取数据库密码  模拟操作
-        String encodePassword = passwordEncoder.encode("123456");
-        logger.info("数据库密码是：{}", encodePassword);
-
-        User user = new User(username, encodePassword,
-                true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-
-        return user;
+        return buildUser(username);
     }
 
     /**
@@ -53,14 +43,17 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
         logger.info("社交登录用户id：" + userId);
+        return buildUser(userId);
 
+    }
+
+
+    private SocialUserDetails buildUser(String userId) {
         // 使用DAO获取数据库密码  模拟操作
         String encodePassword = passwordEncoder.encode("123456");
         logger.info("数据库密码是：{}", encodePassword);
-
         return new SocialUser(userId, encodePassword,
                 true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-
+                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN"));
     }
 }

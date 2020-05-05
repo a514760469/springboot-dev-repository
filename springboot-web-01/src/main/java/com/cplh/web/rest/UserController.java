@@ -2,18 +2,28 @@ package com.cplh.web.rest;
 
 import com.cplh.dto.User;
 import com.cplh.dto.UserQueryCondition;
+import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +31,24 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+    
     @GetMapping("/me")
     public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+        return user;
+    }
+
+    @GetMapping("/auth")
+    public Object getCurrentUserAuth(Authentication user, HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        String token = StringUtils.substringAfter(header, "Bearer ");
+        Claims claims = Jwts.parser()
+                .setSigningKey(securityProperties.getOauth2().getJwtSigningKey().getBytes(StandardCharsets.UTF_8))
+                .parseClaimsJws(token).getBody();
+//                .parseClaimsJwt(token).getBody();
+        String company = (String) claims.get("company");
+        System.out.println("----->" + company);
         return user;
     }
 

@@ -2,13 +2,14 @@ package com.cplh.springboot.security.browser;
 
 import com.cplh.springboot.security.core.authentication.AbstractChannelSecurityConfig;
 import com.cplh.springboot.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.cplh.springboot.security.core.authorize.AuthorizeConfigManager;
 import com.cplh.springboot.security.core.properties.SecurityProperties;
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
-import com.cplh.springboot.security.core.validate.ValidateCodeFilter;
 import com.cplh.springboot.security.core.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -27,25 +28,22 @@ import javax.sql.DataSource;
 public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
-    SecurityProperties securityProperties;
+    private SecurityProperties securityProperties;
 
     @Autowired
-    ValidateCodeFilter validateCodeFilter;
+    private DataSource dataSource;
 
     @Autowired
-    DataSource dataSource;
-
-    @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     /**
      * 抽象配置
      */
     @Autowired
-    SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Autowired
-    ValidateCodeSecurityConfig validateCodeSecurityConfig;
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
     /**
      * 社交登录配置
@@ -54,17 +52,19 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
      *  /auth/{providerId}
      */
     @Autowired
-    SpringSocialConfigurer springSocialConfigurer;
+    private SpringSocialConfigurer springSocialConfigurer;
 
     @Autowired
-    SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
     @Autowired
-    InvalidSessionStrategy invalidSessionStrategy;
+    private InvalidSessionStrategy invalidSessionStrategy;
 
     @Autowired
-    LogoutSuccessHandler logoutSuccessHandler;
+    private LogoutSuccessHandler logoutSuccessHandler;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -98,24 +98,31 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .deleteCookies("JSESSIONID")
                 .and()
-            .authorizeRequests()
-                .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        securityProperties.getBrowser().getLoginPage(),
-                        securityProperties.getBrowser().getSignUpUrl(),
-                        securityProperties.getBrowser().getSignOutUrl(),
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                        "/user/regist"
-                    )
-                    .permitAll()
-                .anyRequest().authenticated()
-                .and()
             .csrf().disable();
+
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 
+    /*
+     * .authorizeRequests()
+     *                 .antMatchers(
+     *                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+     *                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+     *                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+     *                         securityProperties.getBrowser().getLoginPage(),
+     *                         securityProperties.getBrowser().getSignUpUrl(),
+     *                         securityProperties.getBrowser().getSignOutUrl(),
+     *                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+     *                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
+     *                         "/user/regist"
+     *                     )
+     *                     .permitAll()
+     *                 .antMatchers(HttpMethod.GET, "/user/*")
+     *                 .hasRole("ADMIN")
+     *                 .anyRequest()
+     *                 .authenticated()
+     *                 .and()
+     */
 
 
     /**
