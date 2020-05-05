@@ -31,6 +31,9 @@
         <module>springboot-cache</module>
         <module>springboot-dubbo</module>
         <module>springboot-sso</module>
+        <module>springboot-elasticsearch</module>
+        <module>springboot-rabbitmq</module>
+        <module>springboot-web-rate</module>
     </modules>
     
 
