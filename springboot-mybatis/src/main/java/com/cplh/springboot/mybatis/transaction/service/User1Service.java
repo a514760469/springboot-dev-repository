@@ -17,4 +17,15 @@ public class User1Service {
     public void addRequired(User1 user1) {
         user1Mapper.insert(user1);
     }
+
+    //--------------------------- Propagation.REQUIRES_NEW -----------------------------
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void addRequiresNew(User1 user1) {
+        user1Mapper.insert(user1);
+    }
+
+    // ------------------------------------------------------------
+
+
 }
