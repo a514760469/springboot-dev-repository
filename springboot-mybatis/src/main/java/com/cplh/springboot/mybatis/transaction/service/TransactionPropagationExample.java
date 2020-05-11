@@ -172,5 +172,112 @@ public class TransactionPropagationExample {
         }
     }
 
+    // ----------------------- Propagation.NESTED -----------------------
+
+    /**
+     * 外围方法没有开启事务
+     * 张三 李四插入
+     */
+    public void noTransactionExceptionNestedNested() {
+        User1 user1 = new User1("张三");
+        user1Service.addNested(user1);
+
+        User2 user2 = new User2("李四");
+        user2Service.addNested(user2);
+
+        throw new RuntimeException("外围方法异常");
+    }
+
+    /**
+     * 张三插入 李四未插入
+     * 结论：外围方法未开启事务，Propagation.NESTED和Propagation.REQUIRED作用相同
+     */
+    public void noTransactionNestedNestedException() {
+        User1 user1 = new User1("张三");
+        user1Service.addNested(user1);
+
+        User2 user2 = new User2("李四");
+        user2Service.addNestedException(user2);
+    }
+
+    /**
+     * 外围方法开启事务
+     * 张三 李四 均未插入
+     */
+    @Transactional
+    public void transactionExceptionNestedNested() {
+        User1 user1 = new User1("张三");
+        user1Service.addNested(user1);
+
+        User2 user2 = new User2("李四");
+        user2Service.addNested(user2);
+
+        throw new RuntimeException("外围方法异常");
+    }
+
+    /**
+     * 张三 李四 均未插入
+     */
+    @Transactional
+    public void transactionNestedNestedException() {
+        User1 user1 = new User1("张三");
+        user1Service.addNested(user1);
+
+        User2 user2 = new User2("李四");
+        user2Service.addNestedException(user2);
+    }
+
+    /**
+     * 张三插入 李四未插入
+     * 结论：Propagation.NESTED修饰的内部方法属于外部事务的子事务，
+     *      主事务回滚，子事务一定回滚，子事务可以单独回滚(不被主事务感知)而不影响外围主事务和其他子事务。
+     */
+    @Transactional
+    public void transactionNestedNestedExceptionTry() {
+        User1 user1 = new User1("张三");
+        user1Service.addNested(user1);
+
+        User2 user2 = new User2("李四");
+        try {
+            user2Service.addNestedException(user2);
+        } catch (Exception e) {
+            System.err.println("方法回滚");
+        }
+    }
+
+    // ----------------------- 其他传播方式 -----------------------
+
+    @Transactional
+    public void otherPropagation() {
+        User1 user1 = new User1("张三");
+        user1Service.addNotSupport(user1);
+    }
+
+    /**
+     * 张三插入，user1Service以非事务方式执行
+     */
+    @Transactional
+    public void transactionNotSupportException() {
+        User1 user1 = new User1("张三");
+        user1Service.addNotSupportException(user1);
+    }
+
+    /**
+     * 张三插入，有异常但是user1Service以非事务方式执行
+     */
+    public void noTransactionSupportsException() {
+        User1 user1 = new User1("张三");
+        user1Service.addSupportsException(user1);
+    }
+
+    /**
+     *
+     */
+    @Transactional
+    public void transactionMandatory() {
+        User1 user1 = new User1("张三");
+        user1Service.addMandatory(user1);
+    }
+
 
 }

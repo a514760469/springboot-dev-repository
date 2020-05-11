@@ -61,4 +61,54 @@ public class TransactionPropagationExampleTest {
     public void testTransactionRequiredReqNewReqNewExceptionTry() {
         transactionPropagationExample.transactionRequiredReqNewReqNewExceptionTry();
     }
+
+    @Test
+    public void testNested_1() {
+        transactionPropagationExample.noTransactionExceptionNestedNested();
+    }
+
+    @Test
+    public void testNested_2() {
+        transactionPropagationExample.noTransactionNestedNestedException();
+    }
+
+    @Test
+    public void testNested_3() {
+        transactionPropagationExample.transactionExceptionNestedNested();
+    }
+
+    @Test
+    public void testNested_4() {
+        transactionPropagationExample.transactionNestedNestedException();
+    }
+
+    @Test
+    public void testNested_5() {
+        transactionPropagationExample.transactionNestedNestedExceptionTry();
+    }
+
+
+
+
+    @Test
+    public void testPropagation() {
+        transactionPropagationExample.otherPropagation();
+    }
+
+    @Test
+    public void testTransactionNotSupportException() {
+        transactionPropagationExample.transactionNotSupportException();
+    }
+
+    @Test
+    public void testTransactionSupports() {
+        transactionPropagationExample.noTransactionSupportsException();
+    }
+
+    @Test
+    public void testTransactionMandatory() {
+        transactionPropagationExample.transactionMandatory();
+    }
+
+
 }

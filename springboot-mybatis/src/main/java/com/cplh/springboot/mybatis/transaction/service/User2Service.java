@@ -53,4 +53,17 @@ public class User2Service {
         throw new RuntimeException("User2Service.addRequiresNewException异常");
     }
 
+    //------------------------ Propagation.NESTED ---------------------
+
+    @Transactional(propagation = Propagation.NESTED)
+    public void addNested(User2 user2) {
+        user2Mapper.insert(user2);
+    }
+
+    @Transactional(propagation = Propagation.NESTED)
+    public void addNestedException(User2 user){
+        user2Mapper.insert(user);
+        throw new RuntimeException("User2Service.addNestedException异常");
+    }
+
 }
