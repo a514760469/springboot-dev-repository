@@ -245,7 +245,7 @@ public class TransactionPropagationExample {
         }
     }
 
-    // ----------------------- 其他传播方式 -----------------------
+    // ----------------------- 其他传播方式（用的少） -----------------------
 
     @Transactional
     public void otherPropagation() {
@@ -271,7 +271,7 @@ public class TransactionPropagationExample {
     }
 
     /**
-     *
+     * 张三 插入 外围方法去掉@Transactional 抛出异常
      */
     @Transactional
     public void transactionMandatory() {
