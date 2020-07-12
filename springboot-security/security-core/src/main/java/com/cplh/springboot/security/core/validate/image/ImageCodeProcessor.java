@@ -9,8 +9,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 图片验证码处理器
- * 
- * @author zhailiang
  *
  * imageValidateCodeProcessor 这个名称为了让依赖查找能找到
  */

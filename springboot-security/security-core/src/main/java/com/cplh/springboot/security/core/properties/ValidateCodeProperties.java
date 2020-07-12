@@ -6,6 +6,7 @@ public class ValidateCodeProperties {
 
     private SmsCodeProperties sms = new SmsCodeProperties();
 
+
     public ImageCodeProperties getImage() {
         return image;
     }

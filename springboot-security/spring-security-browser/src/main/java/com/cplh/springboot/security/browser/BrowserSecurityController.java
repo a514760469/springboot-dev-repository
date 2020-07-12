@@ -31,11 +31,11 @@ import java.io.IOException;
 @RestController
 public class BrowserSecurityController {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
+    private final RequestCache requestCache = new HttpSessionRequestCache();
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -53,11 +53,11 @@ public class BrowserSecurityController {
             throws IOException {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
-        if(savedRequest != null) {
+        if (savedRequest != null) {
             String target = savedRequest.getRedirectUrl();
             logger.info("引发跳转的请求是：{}", target);
             // 如果引发跳转的请求是一个html
-            if (StringUtils.endsWithIgnoreCase(target,".html")) {
+            if (StringUtils.endsWithIgnoreCase(target, ".html")) {
                 redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
             }
         }
@@ -67,8 +67,6 @@ public class BrowserSecurityController {
     /**
      * 在注册页发这个请求获取用户信息
      * 获取SocialUserInfo 从session里拿
-     * @param request
-     * @return
      */
     @GetMapping("/social/user")
     public SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
@@ -84,7 +82,6 @@ public class BrowserSecurityController {
 
     /**
      * session失效跳转到这
-     * @return
      */
     @GetMapping("/session/invalid")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
@@ -94,6 +91,9 @@ public class BrowserSecurityController {
         return new SimpleResponse(msg);
     }
 
+    /**
+     * 当前用户信息
+     */
     @GetMapping("/me")
     public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
         return user;

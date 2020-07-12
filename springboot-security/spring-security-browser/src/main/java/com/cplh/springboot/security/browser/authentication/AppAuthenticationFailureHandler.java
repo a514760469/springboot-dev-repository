@@ -42,7 +42,6 @@ public class AppAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
         } else {
             super.onAuthenticationFailure(request, response, exception);
         }
-
     }
 
 }

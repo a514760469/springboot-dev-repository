@@ -69,17 +69,44 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     /**
+     * 与doFilter相同的契约，但保证仅在单个请求线程内对每个请求调用一次
+     * @param request request
+     * @param response response
+     * @param filterChain filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        ValidateCodeType type = getValidateCodeType(request);
+
+        if (type != null) {
+            logger.info("校验请求：( " + request.getRequestURI() + " ) 中的验证码" );
+            logger.info("验证码类型：" + type);
+            try {
+                validateCodeProcessorHolder.findValidateCodeProcessor(type).validate(new ServletWebRequest(request, response));
+                logger.info("验证码校验通过.");
+            } catch (ValidateCodeException exception) {
+                authenticationFailureHandler.onAuthenticationFailure(request, response, exception);
+                return;
+            }
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    /**
      * 系统中配置的需要校验验证码的URL根据校验的类型放入map
      */
     private void addUrlToMap(String urlStr, ValidateCodeType validateCodeType) {
         if (StringUtils.isNotBlank(urlStr)) {
-            // split(",")
             String[] urls = StringUtils.splitByWholeSeparatorPreserveAllTokens(urlStr, ",");
             for (String url : urls) {
                 urlMap.put(url, validateCodeType);
             }
         }
-
     }
 
     /**
@@ -100,36 +127,4 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
         return result;
     }
-
-    /**
-     * 与doFilter相同的契约，但保证仅在单个请求线程内对每个请求调用一次
-     * @param request
-     * @param response
-     * @param filterChain
-     * @throws ServletException
-     * @throws IOException
-     */
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                FilterChain filterChain) throws ServletException, IOException {
-
-        ValidateCodeType type = getValidateCodeType(request);
-
-        if (type != null) {
-            logger.info("校验请求：( " + request.getRequestURI() + " ) 中的验证码" );
-            logger.info("验证码类型：" + type);
-            try {
-                validateCodeProcessorHolder.findValidateCodeProcessor(type)
-                        .validate(new ServletWebRequest(request, response));
-
-                logger.info("验证码校验通过.");
-            } catch (ValidateCodeException exception) {
-                authenticationFailureHandler.onAuthenticationFailure(request, response, exception);
-                return;
-            }
-        }
-
-        filterChain.doFilter(request, response);
-    }
-
 }

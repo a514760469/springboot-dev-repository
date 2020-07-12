@@ -35,25 +35,25 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
             g.drawLine(x, y, x + xl, y + yl);
         }
 
-        String sRand = "";
+        StringBuilder sRand = new StringBuilder();
         for (int i = 0; i < securityProperties.getCode().getImage().getLength(); i++) {
             String rand = String.valueOf(random.nextInt(10));
-            sRand += rand;
+            sRand.append(rand);
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
             g.drawString(rand, 13 * i + 6, 16);
         }
 
         g.dispose();
 
-        return new ImageCode(image, sRand, securityProperties.getCode().getImage().getExpireIn());
+        return new ImageCode(image, sRand.toString(), securityProperties.getCode().getImage().getExpireIn());
     }
 
     /**
      * 生成随机背景条纹
      *
-     * @param fc
-     * @param bc
-     * @return
+     * @param fc fc
+     * @param bc bc
+     * @return color
      */
     private Color getRandColor(int fc, int bc) {
         Random random = new Random();

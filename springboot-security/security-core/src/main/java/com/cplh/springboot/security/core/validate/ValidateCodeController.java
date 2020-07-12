@@ -31,7 +31,6 @@ public class ValidateCodeController {
     public void createCode(HttpServletRequest request, HttpServletResponse response,
                            @PathVariable String type) throws Exception {
 
-        validateCodeProcessorHolder.findValidateCodeProcessor(type)
-                .create(new ServletWebRequest(request, response));
+        validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
     }
 }

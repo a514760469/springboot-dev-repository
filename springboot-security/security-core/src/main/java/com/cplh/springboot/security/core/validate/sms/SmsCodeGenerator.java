@@ -6,12 +6,8 @@ import com.cplh.springboot.security.core.validate.ValidateCodeGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Random;
 
 @Component
 public class SmsCodeGenerator implements ValidateCodeGenerator {
@@ -25,11 +21,4 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
         return new ValidateCode(code, securityProperties.getCode().getSms().getExpireIn());
     }
 
-    public SecurityProperties getSecurityProperties() {
-        return securityProperties;
-    }
-
-    public void setSecurityProperties(SecurityProperties securityProperties) {
-        this.securityProperties = securityProperties;
-    }
 }

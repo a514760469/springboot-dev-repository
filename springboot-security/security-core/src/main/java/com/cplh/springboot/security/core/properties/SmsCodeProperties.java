@@ -6,7 +6,7 @@ public class SmsCodeProperties {
 
     private int expireIn = 60;
 
-    private String url = ""; // 验证码需要拦截的url
+    private String url = ""; // 验证码需要拦截的url "," 分割
 
     public int getLength() {
         return length;

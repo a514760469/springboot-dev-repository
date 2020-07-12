@@ -1,13 +1,11 @@
 package com.cplh.springboot.security.core.authentication.mobile;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Component;
 //@Component("smsCodeAuthenticationProvider")
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
+//    @Autowired
     private UserDetailsService userDetailsService;
 
     /**

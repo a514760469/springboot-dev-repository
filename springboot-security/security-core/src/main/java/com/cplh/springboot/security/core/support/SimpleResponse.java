@@ -1,5 +1,11 @@
 package com.cplh.springboot.security.core.support;
 
+import lombok.Data;
+
+/**
+ * 封装返回的对象
+ */
+@Data
 public class SimpleResponse {
 
     private Object content;
@@ -8,11 +14,4 @@ public class SimpleResponse {
         this.content = content;
     }
 
-    public Object getContent() {
-        return content;
-    }
-
-    public void setContent(Object content) {
-        this.content = content;
-    }
 }

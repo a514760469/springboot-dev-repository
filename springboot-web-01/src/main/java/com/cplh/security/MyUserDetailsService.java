@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 //    @Autowired
     // 注入 DAO
 
@@ -36,15 +36,12 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
     /**
      * SocialUserDetailsService 提供 用于社交登录
      * 根据 userId 构建UserDetails
-     * @param userId
-     * @return
-     * @throws UsernameNotFoundException
+     * @throws UsernameNotFoundException usernameNotFoundException
      */
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
         logger.info("社交登录用户id：" + userId);
         return buildUser(userId);
-
     }
 
 

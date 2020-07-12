@@ -8,7 +8,6 @@ import java.util.Collection;
 
 /**
  * 代码仿照UsernamePasswordAuthenticationToken
- *
  */
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
 

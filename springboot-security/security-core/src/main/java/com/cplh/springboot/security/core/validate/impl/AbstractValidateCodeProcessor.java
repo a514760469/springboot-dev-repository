@@ -39,7 +39,6 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
      */
     @Override
     public void create(ServletWebRequest webRequest) throws Exception {
-
         C validateCode = generate(webRequest);
 
         save(webRequest, validateCode);
@@ -76,7 +75,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
         }
 
         if(codeInSession.isExpired()){
-//            sessionStrategy.removeAttribute(webRequest, sessionKey);
+//            sessionStrategy.removeAttribute(webRequest, sessionKey);// 从session中移出
             validateCodeRepository.remove(webRequest, validateCodeType);
             throw new ValidateCodeException("验证码已过期");
         }
@@ -86,11 +85,11 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
         }
 
         validateCodeRepository.remove(webRequest, validateCodeType);
-//        sessionStrategy.removeAttribute(webRequest, sessionKey);
+//        sessionStrategy.removeAttribute(webRequest, sessionKey);// 从session中移出
     }
 
     /**
-     * 保存校验码
+     * 保存验证码
      * sessionStrategy
      * @param request
      * @param validateCode
@@ -101,7 +100,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
     }
 
     /**
-     * 生成校验码
+     * 生成验证码
      * @param request
      * @return
      */

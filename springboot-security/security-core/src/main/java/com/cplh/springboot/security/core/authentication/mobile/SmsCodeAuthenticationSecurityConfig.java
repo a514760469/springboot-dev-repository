@@ -19,13 +19,13 @@ public class SmsCodeAuthenticationSecurityConfig
         extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     /**
-     * 成功处理器
+     * 登录成功处理器
      */
     @Autowired
     AuthenticationSuccessHandler appAuthenticationSuccessHandler;
 
     /**
-     * 失败处理器
+     * 登录失败处理器
      */
     @Autowired
     AuthenticationFailureHandler appAuthenticationFailureHandler;
@@ -37,7 +37,7 @@ public class SmsCodeAuthenticationSecurityConfig
 //    SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
