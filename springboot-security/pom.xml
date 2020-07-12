@@ -19,39 +19,11 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <spring.social.version>1.1.4.RELEASE</spring.social.version>
+        <spring.social.version>1.1.6.RELEASE</spring.social.version>
     </properties>
 
     <dependencies>
 
-        <!-- spring social 第三方登录 -->
-
-
-        <!--<dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>-->
     </dependencies>
 
     <build>

@@ -1,5 +1,6 @@
 package com.cplh.springboot.security.core.social.qq.api;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // 获取openId 的url
     private static final String URL_GET_OPENID = "https://graph.qq.com/oauth2.0/me?access_token=%s";
@@ -19,13 +20,13 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
     private static final String URL_GET_USERINFO =
             "https://graph.qq.com/user/get_user_info?access_token=%s&oauth_consumer_key=%s&openid=%s";
 
-    private String appId;
+    private final String appId;
 
-    private String openId;
+    private final String openId;
 
-    private String accessToken;
+    private final String accessToken;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public QQImpl(String accessToken, String appId) {
         super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
