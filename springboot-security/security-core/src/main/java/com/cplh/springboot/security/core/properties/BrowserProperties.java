@@ -1,7 +1,9 @@
 package com.cplh.springboot.security.core.properties;
 
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 
+@ConfigurationPropertiesBinding
 public class BrowserProperties {
 
     private SessionProperties session = new SessionProperties();

@@ -1,7 +1,6 @@
 package com.cplh.springboot.security.core.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * 安全模块顶级配置
