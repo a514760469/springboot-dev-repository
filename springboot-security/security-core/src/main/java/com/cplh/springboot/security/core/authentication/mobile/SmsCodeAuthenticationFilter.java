@@ -10,11 +10,13 @@ import org.springframework.util.Assert;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.cplh.springboot.security.core.properties.constant.SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE;
+
 /**
  * 短信登录请求过滤器
  * 代码仿照 UsernamePasswordAuthenticationFilter
+ * 先验证验证码是否正确，再走这个过滤器
  */
-//@Component
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     // ~ Static fields/initializers
     // =====================================================================================
@@ -22,13 +24,14 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     public static final String FORM_MOBILE_KEY = "mobile";
 
     private String mobileParameter = FORM_MOBILE_KEY;
-    private boolean postOnly = true;
+    private boolean postOnly = true;// 只处理post请求
 
     // ~ Constructors
     // ===================================================================================================
 
     public SmsCodeAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
+        // 匹配过滤器处理的请求路径
+        super(new AntPathRequestMatcher(DEFAULT_LOGIN_PROCESSING_URL_MOBILE, "POST"));
     }
 
     // ~ Methods
@@ -52,7 +55,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
         // Allow subclasses to set the "details" property
         setDetails(request, authRequest);
-
+        // 把token传给AuthenticationManager寻找相应的provider
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 

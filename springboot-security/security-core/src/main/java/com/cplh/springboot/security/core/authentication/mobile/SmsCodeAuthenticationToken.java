@@ -7,7 +7,9 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import java.util.Collection;
 
 /**
+ * 封装认证信息
  * 代码仿照UsernamePasswordAuthenticationToken
+ * 把跟密码相关的都去掉
  */
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
 

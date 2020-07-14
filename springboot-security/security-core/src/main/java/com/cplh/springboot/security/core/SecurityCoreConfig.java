@@ -30,7 +30,6 @@ public class SecurityCoreConfig {
 
     /**
      * 短信发送器。 如果没有使用默认的
-     * @return
      */
     @Bean
     @ConditionalOnMissingBean(SmsCodeSender.class)

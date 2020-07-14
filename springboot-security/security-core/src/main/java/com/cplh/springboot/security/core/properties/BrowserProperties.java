@@ -1,8 +1,10 @@
 package com.cplh.springboot.security.core.properties;
 
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 
+@Data
 @ConfigurationPropertiesBinding
 public class BrowserProperties {
 
@@ -18,51 +20,4 @@ public class BrowserProperties {
 
     private int rememberMeSeconds = 3600;// 一小时
 
-    public String getLoginPage() {
-        return loginPage;
-    }
-
-    public void setLoginPage(String loginPage) {
-        this.loginPage = loginPage;
-    }
-
-    public LoginType getLoginType() {
-        return loginType;
-    }
-
-    public void setLoginType(LoginType loginType) {
-        this.loginType = loginType;
-    }
-
-    public int getRememberMeSeconds() {
-        return rememberMeSeconds;
-    }
-
-    public void setRememberMeSeconds(int rememberMeSeconds) {
-        this.rememberMeSeconds = rememberMeSeconds;
-    }
-
-    public String getSignUpUrl() {
-        return signUpUrl;
-    }
-
-    public void setSignUpUrl(String signUpUrl) {
-        this.signUpUrl = signUpUrl;
-    }
-
-    public SessionProperties getSession() {
-        return session;
-    }
-
-    public String getSignOutUrl() {
-        return signOutUrl;
-    }
-
-    public void setSignOutUrl(String signOutUrl) {
-        this.signOutUrl = signOutUrl;
-    }
-
-    public void setSession(SessionProperties session) {
-        this.session = session;
-    }
 }

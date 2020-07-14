@@ -1,5 +1,8 @@
 package com.cplh.springboot.security.core.validate.sms;
 
+/**
+ * 默认的实现，让真实的场景覆盖掉本实现
+ */
 public class DefaultSmsCodeSender implements SmsCodeSender {
 
     /**

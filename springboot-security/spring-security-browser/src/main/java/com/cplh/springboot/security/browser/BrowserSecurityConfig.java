@@ -42,6 +42,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    /**
+     * 验证码相关的配置
+     */
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
@@ -54,6 +57,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SpringSocialConfigurer springSocialConfigurer;
 
+    /**
+     * session过期策略
+     */
     @Autowired
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
@@ -69,13 +75,13 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // 抽象配置生效
+        // 抽象配置生效，密码登录相关的配置
         applyPasswordAuthenticationConfig(http);
 
         // smsCodeAuthenticationSecurityConfig配置类中的所有配置加进来
         http.apply(smsCodeAuthenticationSecurityConfig)
                 .and()
-            .apply(validateCodeSecurityConfig)
+            .apply(validateCodeSecurityConfig)      // 验证码相关配置加进来
                 .and()
             .apply(springSocialConfigurer)
                 .and()
@@ -103,38 +109,16 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
         authorizeConfigManager.config(http.authorizeRequests());
     }
 
-    /*
-     * .authorizeRequests()
-     *                 .antMatchers(
-     *                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-     *                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-     *                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-     *                         securityProperties.getBrowser().getLoginPage(),
-     *                         securityProperties.getBrowser().getSignUpUrl(),
-     *                         securityProperties.getBrowser().getSignOutUrl(),
-     *                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
-     *                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-     *                         "/user/regist"
-     *                     )
-     *                     .permitAll()
-     *                 .antMatchers(HttpMethod.GET, "/user/*")
-     *                 .hasRole("ADMIN")
-     *                 .anyRequest()
-     *                 .authenticated()
-     *                 .and()
-     */
-
 
     /**
-     * 持久化token
-     * @return
+     * rememberMe功能需要加入组件，持久化token
      */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         // 用户登录后将token保存到数据库里
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
-//        tokenRepository.setCreateTableOnStartup(true);
+//        tokenRepository.setCreateTableOnStartup(true);// 启动时创建表
         return tokenRepository;
     }
 

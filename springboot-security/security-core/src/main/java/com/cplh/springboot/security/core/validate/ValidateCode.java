@@ -17,7 +17,6 @@ public class ValidateCode implements Serializable {
 
     /**
      * 是否过期
-     * @return
      */
     public boolean isExpired() {
         return LocalDateTime.now().isAfter(expireTime);

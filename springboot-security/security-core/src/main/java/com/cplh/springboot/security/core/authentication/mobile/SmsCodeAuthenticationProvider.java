@@ -10,22 +10,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 /**
  *
  */
-//@Component("smsCodeAuthenticationProvider")
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
-//    @Autowired
     private UserDetailsService userDetailsService;
 
     /**
-     *
+     * 验证token，如果通过返回认证成功的Authentication
      * @param authentication
      * @return
      * @throws AuthenticationException
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        SmsCodeAuthenticationToken token = (SmsCodeAuthenticationToken) authentication;
-        UserDetails user = userDetailsService.loadUserByUsername((String) token.getPrincipal());
+        SmsCodeAuthenticationToken token = (SmsCodeAuthenticationToken) authentication;// authentication 实际上就是token
+        UserDetails user = userDetailsService.loadUserByUsername((String) token.getPrincipal());// 这里用手机号读取用户信息
 
         if (user == null) {
             throw new InternalAuthenticationServiceException("无法获取用户信息");
