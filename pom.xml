@@ -34,6 +34,7 @@
         <module>springboot-elasticsearch</module>
         <module>springboot-rabbitmq</module>
         <module>springboot-web-rate</module>
+        <module>springboot-statemachine</module>
     </modules>
     
 
