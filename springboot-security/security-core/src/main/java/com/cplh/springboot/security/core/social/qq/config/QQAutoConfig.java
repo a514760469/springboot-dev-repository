@@ -8,16 +8,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.social.connect.ConnectionFactory;
 
+/**
+ * 系统里配了qq的app-id，这个类才生效
+ */
 @Configuration
 @ConditionalOnProperty(prefix = "application.security.social.qq", name = "app-id")
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
     @Autowired
-    SecurityProperties securityProperties;
+    private SecurityProperties securityProperties;
 
     /**
-     * 将QQConnectionFactory注入容器
-     * @return
+     * 将QQConnectionFactory注入容器，QQ登录的核心
      */
     @Override
     protected ConnectionFactory<?> createConnectionFactory() {

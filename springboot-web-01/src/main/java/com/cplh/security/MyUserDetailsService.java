@@ -1,10 +1,8 @@
 package com.cplh.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,11 +15,10 @@ import org.springframework.stereotype.Component;
 /**
  * 这个类应该在Demo项目里
  */
+@Slf4j
 @Component("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-//    @Autowired
     // 注入 DAO
 
     @Autowired
@@ -29,7 +26,7 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("表单登录用户名：" + username);
+        log.info("表单登录用户名：" + username);
         return buildUser(username);
     }
 
@@ -40,15 +37,14 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
      */
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        logger.info("社交登录用户id：" + userId);
+        log.info("社交登录用户id：" + userId);
         return buildUser(userId);
     }
-
 
     private SocialUserDetails buildUser(String userId) {
         // 使用DAO获取数据库密码  模拟操作
         String encodePassword = passwordEncoder.encode("123456");
-        logger.info("数据库密码是：{}", encodePassword);
+        log.info("数据库密码是：{}", encodePassword);
         return new SocialUser(userId, encodePassword,
                 true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN"));

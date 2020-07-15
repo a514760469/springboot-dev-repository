@@ -2,14 +2,15 @@ package com.cplh.springboot.security.core.properties;
 
 import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 
 @Data
-@ConfigurationPropertiesBinding
 public class BrowserProperties {
 
     private SessionProperties session = new SessionProperties();
 
+    /**
+     * 注册页
+     */
     private String signUpUrl = "/signUp.html";
 
     private String signOutUrl;

@@ -4,7 +4,10 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.stereotype.Component;
 
-@Component
+/**
+ * 用于免注册登录，如果不注册这个bean，则不实现免注册登录功能
+ */
+//@Component
 public class DemoConnectionSignUp implements ConnectionSignUp {
 
     @Override

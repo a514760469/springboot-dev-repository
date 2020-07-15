@@ -16,25 +16,33 @@ import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
+/**
+ * social配置类
+ */
 @Configuration
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter {
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Autowired
-    SecurityProperties securityProperties;
+    private SecurityProperties securityProperties;
 
     // 用于免注册登录，不是每个项目都会有
     @Autowired(required = false)
-    ConnectionSignUp connectionSignUp;
+    private ConnectionSignUp connectionSignUp;
 
     @Autowired(required = false)
-    SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
 
+    /**
+     * @param connectionFactoryLocator 查找当前应该用哪一个connectionFactory
+     * 使用建表语句 /org/springframework/social/connect/jdbc/JdbcUsersConnectionRepository.sql
+     */
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+        // Encryptors.noOpText() 不做加密
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
         repository.setTablePrefix("sp_social_");// 表的前缀
         if (connectionSignUp != null) {
@@ -63,8 +71,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
      * spring social 提供的工具类
      * 作用1 获取social登录成功后的用户信息
      *     2 生成userId后交给Spring
-     * @param connectionFactoryLocator
-     * @return
      */
     @Bean
     ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator) {

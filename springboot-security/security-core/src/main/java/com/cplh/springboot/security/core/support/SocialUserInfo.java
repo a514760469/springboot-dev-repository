@@ -1,8 +1,15 @@
 package com.cplh.springboot.security.core.support;
 
+import lombok.Data;
+
+/**
+ * 社交登录的一些信息。
+ * 可以让用户登录或注册时显示友好的信息
+ */
+@Data
 public class SocialUserInfo {
 
-    private String providerId;// 哪一个第三方
+    private String providerId;// 哪一个第三方在做社交登录
 
     private String providerUserId;// openid
 
@@ -10,35 +17,4 @@ public class SocialUserInfo {
 
     private String headImg;// 头像
 
-    public String getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
-
-    public String getProviderUserId() {
-        return providerUserId;
-    }
-
-    public void setProviderUserId(String providerUserId) {
-        this.providerUserId = providerUserId;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getHeadImg() {
-        return headImg;
-    }
-
-    public void setHeadImg(String headImg) {
-        this.headImg = headImg;
-    }
 }

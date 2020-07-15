@@ -9,27 +9,26 @@ import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 适用于QQ的 OAuth2Template
  */
 public class QQOAuth2Template extends OAuth2Template {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public QQOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
         super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
         setUseParametersForClientAuthentication(true);
     }
 
-
     @Override
     protected RestTemplate createRestTemplate() {
-        // 父类的创建结果
+        // 拿到父类的创建结果
         RestTemplate restTemplate = super.createRestTemplate();
-        // 添加 处理contentType text/html 的Converter
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("utf-8")));
+        // 添加 处理contentType为text/html的Converter
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
         return restTemplate;
     }
 
@@ -39,10 +38,10 @@ public class QQOAuth2Template extends OAuth2Template {
         logger.info("获取AccessToken的结果：" + responseStr);
         String[] item = StringUtils.splitByWholeSeparator(responseStr, "&");
 
+        assert item != null;
         String accessToken = StringUtils.substringAfterLast(item[0], "=");
         Long expiresIn = new Long(StringUtils.substringAfterLast(item[1], "="));
         String refreshToken = StringUtils.substringAfterLast(item[2], "=");
-
 
         return new AccessGrant(accessToken, null, refreshToken, expiresIn);
     }

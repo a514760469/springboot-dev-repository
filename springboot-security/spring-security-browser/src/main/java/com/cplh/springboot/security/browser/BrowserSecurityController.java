@@ -41,7 +41,7 @@ public class BrowserSecurityController {
     private SecurityProperties securityProperties;
 
     @Autowired
-    ProviderSignInUtils providerSignInUtils;
+    private ProviderSignInUtils providerSignInUtils;
 
     /**
      * 当需要身份认证时，到这里！
@@ -81,9 +81,20 @@ public class BrowserSecurityController {
     }
 
     /**
+     * 在注册页发这个请求获取用户信息
+     * 获取SocialUserInfo 从session里拿
+     */
+    @GetMapping("/social/user/image")
+    public String getSocialUserInfoImage(HttpServletRequest request) {
+        // 从Session里拿connection
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
+        return connection.getImageUrl();
+    }
+
+    /**
      * session失效跳转到这
      */
-    @GetMapping("/session/invalid")
+    @GetMapping(SecurityConstants.DEFAULT_SESSION_INVALID_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse sessionInvalid() {
 
