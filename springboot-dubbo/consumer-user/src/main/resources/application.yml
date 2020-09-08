@@ -2,6 +2,6 @@ dubbo:
     application:
         name: consumer-user
     registry:
-        address: zookeeper://192.168.0.178:2181
+        address: zookeeper://59.110.174.24:2181
 server:
     port: 8060

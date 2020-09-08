@@ -2,9 +2,10 @@ dubbo:
     application:
         name: provider-ticket # 指定当前服务/应用的名字（同样的服务名字相同，不要和别的服务同名）
     registry:
-        address: zookeeper://192.168.0.178:2181
+        address: zookeeper://59.110.174.24:2181
     scan:
         base-packages: com.cplh.gis.ticket.service
+
 #logging:
 #    level: debug
-debug: true
+#debug: true
