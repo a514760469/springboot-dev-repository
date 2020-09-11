@@ -5,7 +5,8 @@ dubbo:
         address: zookeeper://59.110.174.24:2181
     scan:
         base-packages: com.cplh.gis.ticket.service
-
+    protocol:
+        threads: 200
 #logging:
 #    level: debug
 #debug: true
