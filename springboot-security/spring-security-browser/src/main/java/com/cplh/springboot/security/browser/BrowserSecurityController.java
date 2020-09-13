@@ -7,7 +7,11 @@ import com.cplh.springboot.security.core.properties.constant.SecurityConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileUrlResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -27,6 +31,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 @RestController
 public class BrowserSecurityController {
@@ -85,19 +90,21 @@ public class BrowserSecurityController {
      * 获取SocialUserInfo 从session里拿
      */
     @GetMapping("/social/user/image")
-    public String getSocialUserInfoImage(HttpServletRequest request) {
+    public ResponseEntity<Resource> getSocialUserInfoImage(HttpServletRequest request) throws MalformedURLException {
         // 从Session里拿connection
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
-        return connection.getImageUrl();
+        logger.info("获取用户的头像玩玩：{}", connection.getImageUrl());
+        UrlResource resource = new UrlResource(connection.getImageUrl());
+        return ResponseEntity.ok(resource);
     }
 
     /**
      * session失效跳转到这
+     * 401
      */
     @GetMapping(SecurityConstants.DEFAULT_SESSION_INVALID_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse sessionInvalid() {
-
         String msg = "session失效";
         return new SimpleResponse(msg);
     }

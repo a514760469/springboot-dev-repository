@@ -2,6 +2,7 @@ package com.cplh.springboot.security.browser.logout;
 
 import com.cplh.springboot.security.core.support.SimpleResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 public class BrowserLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final String signOutUrl;
 
-    private String signOutUrl;
-
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public BrowserLogoutSuccessHandler(String signOutUrl, ObjectMapper objectMapper) {
         this.signOutUrl = signOutUrl;

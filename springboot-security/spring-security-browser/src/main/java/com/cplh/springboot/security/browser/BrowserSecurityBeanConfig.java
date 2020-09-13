@@ -23,15 +23,16 @@ public class BrowserSecurityBeanConfig {
     @Bean
     @ConditionalOnMissingBean(InvalidSessionStrategy.class)
     public InvalidSessionStrategy invalidSessionStrategy() {
-        return new AppInvalidSessionStrategy(
-                securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+        return new AppInvalidSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
     }
 
+    /**
+     * 并发登录导致session失效的策略
+     */
     @Bean
     @ConditionalOnMissingBean(SessionInformationExpiredStrategy.class)
     public SessionInformationExpiredStrategy sessionInformationExpiredStrategy() {
-        return new AppExpiredSessionStrategy(
-                securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+        return new AppExpiredSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
     }
 
     @Bean

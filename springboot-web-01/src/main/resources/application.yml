@@ -25,12 +25,12 @@ application:
         browser:
             signUpUrl: /demo-siginUp.html
             signOutUrl: /logout.html
-            #            login-page: /demo-siginIn.html
+#            login-page: /demo-siginIn.html
             loginType: JSON
 
         social:
             qq:
-                #                providerId: ""
+#                providerId: ""
                 app-id: 101762186
                 app-secret: 48c877f0058aa19cbe98321ffae76001
         oauth2:
