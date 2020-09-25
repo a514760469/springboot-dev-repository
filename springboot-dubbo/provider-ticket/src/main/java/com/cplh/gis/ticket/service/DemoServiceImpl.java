@@ -3,7 +3,7 @@ package com.cplh.gis.ticket.service;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.cplh.dubbo.api.DemoService;
 
-@Service
+@Service(timeout = 60000)
 public class DemoServiceImpl implements DemoService {
 
     @Override

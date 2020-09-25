@@ -1,0 +1,2 @@
+cache=com.cplh.gis.ticket.spi.dubbo.NormalCarMaker
+race=com.cplh.gis.ticket.spi.dubbo.RaceCarMaker
