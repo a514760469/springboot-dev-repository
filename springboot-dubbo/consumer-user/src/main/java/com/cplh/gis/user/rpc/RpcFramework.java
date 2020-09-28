@@ -1,7 +1,5 @@
 package com.cplh.gis.user.rpc;
 
-import com.cplh.dubbo.api.RpcTestService;
-
 import java.io.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

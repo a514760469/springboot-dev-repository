@@ -12,8 +12,9 @@ import com.cplh.dubbo.api.TraceIdService;
 public class TraceIdServiceImpl implements TraceIdService {
 
     @Override
-    public void traceIdTest(String key) {
+    public String traceIdTest(String key) {
         String traceId = RpcContext.getContext().getAttachment("traceId");
         System.out.println("key = " + key + ", traceId = " + traceId);
+        return traceId;
     }
 }

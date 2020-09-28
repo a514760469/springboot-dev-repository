@@ -29,7 +29,6 @@ public class DemoConsumerController {
 
     @RequestMapping("/trace")
     public String trace() {
-        traceIdService.traceIdTest("11");
-        return "true";
+        return traceIdService.traceIdTest("11");
     }
 }

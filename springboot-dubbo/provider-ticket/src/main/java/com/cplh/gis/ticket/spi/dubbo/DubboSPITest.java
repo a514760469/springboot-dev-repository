@@ -8,17 +8,21 @@ import com.alibaba.dubbo.common.extension.ExtensionLoader;
  */
 public class DubboSPITest {
 
-    public static void main(String[] args) {
-//        ExtensionLoader<Robot> el = ExtensionLoader.getExtensionLoader(Robot.class);
-//        Robot optimusPrime = el.getExtension("optimusPrime");
-//        optimusPrime.sayHello();
-//        Robot bumblebee = el.getExtension("bumblebee");
-//        bumblebee.sayHello();
+    static {
+        System.setProperty("dubbo.application.logger", "slf4j");
+    }
 
-        ExtensionLoader<CarMaker> carEl = ExtensionLoader.getExtensionLoader(CarMaker.class);
+    public static void main(String[] args) {
+        ExtensionLoader<Robot> el = ExtensionLoader.getExtensionLoader(Robot.class);
+        Robot optimusPrime = el.getExtension("optimusPrime");
+        optimusPrime.sayHello();
+        Robot bumblebee = el.getExtension("bumblebee");
+        bumblebee.sayHello();
+
+//        ExtensionLoader<CarMaker> carEl = ExtensionLoader.getExtensionLoader(CarMaker.class);
 //        List<CarMaker> cache = carEl.getActivateExtension(URL.valueOf("localhost/w?cache=1"), "cache");
-        CarMaker cache = carEl.getExtension("cache");
-        System.out.println(cache);
+//        CarMaker cache = carEl.getExtension("cache");
+//        System.out.println(cache);
     }
 
 }

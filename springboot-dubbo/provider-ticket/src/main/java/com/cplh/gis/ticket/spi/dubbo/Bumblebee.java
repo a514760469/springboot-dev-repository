@@ -1,4 +1,4 @@
-package com.cplh.gis.ticket.spi;
+package com.cplh.gis.ticket.spi.dubbo;
 
 /**
  * @author zhanglifeng

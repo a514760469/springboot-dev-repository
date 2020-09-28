@@ -1,4 +1,4 @@
-package com.cplh.dubbo.api;
+package com.cplh.gis.user.rpc;
 
 /**
  * @author zhanglifeng
