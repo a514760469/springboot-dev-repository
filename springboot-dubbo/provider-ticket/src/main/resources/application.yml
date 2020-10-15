@@ -7,6 +7,9 @@ dubbo:
         base-packages: com.cplh.gis.ticket.service
     protocol:
         threads: 200
+        port: 20881     # dubbo默认 20880
 #logging:
 #    level: debug
 #debug: true
+server:
+    port: 8081

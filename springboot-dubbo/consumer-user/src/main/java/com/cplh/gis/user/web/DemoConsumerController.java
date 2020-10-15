@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoConsumerController {
 
-    @Reference(init = true, filter = {"myRpc"})
+    @Reference(init = true, loadbalance = "roundrobin", stub = "com.cplh.dubbo.api.stub.DemoServiceStub")
     private DemoService demoService;
 
     @Reference
@@ -24,6 +24,7 @@ public class DemoConsumerController {
         stopWatch.start();
         String s = demoService.sayHello(name);
         stopWatch.stop();
+        System.out.println("time: " + stopWatch.getTotalTimeMillis());
         return s;
     }
 
