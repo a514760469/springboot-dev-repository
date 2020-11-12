@@ -35,6 +35,8 @@
         <module>springboot-rabbitmq</module>
         <module>springboot-web-rate</module>
         <module>springboot-statemachine</module>
+        <module>springboot-oauth2-authorization-server</module>
+
     </modules>
     
 
