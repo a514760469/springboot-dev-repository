@@ -1,7 +1,5 @@
 package com.cplh.gis.user.rpc;
 
-import com.cplh.dubbo.api.RpcTestService;
-
 import static com.cplh.gis.user.rpc.RpcFramework.refer;
 
 /**
