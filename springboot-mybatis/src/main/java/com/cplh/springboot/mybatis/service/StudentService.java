@@ -5,4 +5,7 @@ import com.cplh.springboot.mybatis.entity.Student;
 public interface StudentService {
 
     Student insertStudent(Student student);
+
+
+    Student selectByPrimaryKey(Integer id);
 }

@@ -27,4 +27,9 @@ public class StudentServiceImplTest {
         System.err.println(save);
     }
 
+    @Test
+    public void selectByPrimaryKey() {
+        Student student = studentService.selectByPrimaryKey(8);
+        System.out.println(student);
+    }
 }
