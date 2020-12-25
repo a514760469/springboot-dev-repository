@@ -14,7 +14,10 @@
         id, name, age, sex, address, cid
     </sql>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <!-- 这家伙开启二级缓存 -->
+    <cache/>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" useCache="true">
         select
         <include refid="Base_Column_List"/>
         from student
@@ -107,6 +110,18 @@
             sex     = #{sex,jdbcType=VARCHAR},
             address = #{address,jdbcType=VARCHAR},
             cid     = #{cid,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from student
+    </select>
+
+
+    <!-- 测试 -->
+    <update id="updateName" parameterType="com.cplh.springboot.mybatis.entity.Student">
+        update student
+        set name    = #{name,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

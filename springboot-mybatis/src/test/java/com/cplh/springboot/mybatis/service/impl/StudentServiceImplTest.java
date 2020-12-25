@@ -2,6 +2,7 @@ package com.cplh.springboot.mybatis.service.impl;
 
 import com.cplh.springboot.mybatis.entity.Student;
 import com.cplh.springboot.mybatis.service.StudentService;
+import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,11 @@ public class StudentServiceImplTest {
     public void selectByPrimaryKey() {
         Student student = studentService.selectByPrimaryKey(8);
         System.out.println(student);
+    }
+
+    @Test
+    public void findPage() {
+        PageInfo<Student> page = studentService.findPage();
+        System.out.println(page);
     }
 }
