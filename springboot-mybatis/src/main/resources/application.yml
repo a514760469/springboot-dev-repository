@@ -19,3 +19,9 @@ logging:
 jasypt:
     encryptor:
         password: Hello
+pagehelper:
+    properties:
+        boundSqlInterceptors: com.cplh.springboot.mybatis.plugin.TestBoundSqlInterceptor
+        helperDialect: mysql
+    reasonable: true
+    page-size-zero: true

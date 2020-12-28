@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Component
 @Intercepts({
 //    @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class, Integer.class}),
-    @Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
+//    @Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
 
 })
 public class TestMyInterceptor implements Interceptor {
@@ -34,7 +34,7 @@ public class TestMyInterceptor implements Interceptor {
 
     @Override
     public Object plugin(Object target) {
-        System.err.println(target);
+//        System.err.println(target);
         return Plugin.wrap(target, this);
     }
 }

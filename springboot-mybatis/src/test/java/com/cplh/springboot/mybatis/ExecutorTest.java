@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 非springboot的方式
  * @author zhanglifeng
  * @since 2020-12-22
  */
@@ -50,7 +51,7 @@ public class ExecutorTest {
         System.out.println(list.get(0));
     }
 
-    // ReuseExecutor 可重用执行器
+    // ReuseExecutor 可重用执行器 重用的是statement对象
     @Test
     public void reuseExecutor() throws SQLException {
         ReuseExecutor executor = new ReuseExecutor(configuration, jdbcTransaction);
@@ -73,7 +74,12 @@ public class ExecutorTest {
         map.put("id", 12);
 
         executor.doUpdate(ms, map);
-        executor.doUpdate(ms, map);
+
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("name", "哈哈哈哈哈嗝");
+        map2.put("id", 13);
+
+        executor.doUpdate(ms, map2);
         executor.doFlushStatements(false);
     }
 
@@ -82,15 +88,16 @@ public class ExecutorTest {
     @Test
     public void baseExecutor() throws SQLException {
         SimpleExecutor executor = new SimpleExecutor(configuration, jdbcTransaction);
-        executor.query(ms, 12, RowBounds.DEFAULT, SimpleExecutor.NO_RESULT_HANDLER);
-        executor.query(ms, 12, RowBounds.DEFAULT, SimpleExecutor.NO_RESULT_HANDLER);
+        List<Object> query = executor.query(ms, 12, RowBounds.DEFAULT, SimpleExecutor.NO_RESULT_HANDLER);
+        List<Object> query1 = executor.query(ms, 12, RowBounds.DEFAULT, SimpleExecutor.NO_RESULT_HANDLER);
+        System.out.println(query.get(0) == query1.get(0));
     }
 
 
     @Test
     public void cacheExecutor() throws SQLException {
         SimpleExecutor simpleExecutor = new SimpleExecutor(configuration, jdbcTransaction);
-        // 装饰器模式
+        // 装饰器模式Executor
         CachingExecutor executor = new CachingExecutor(simpleExecutor);// 二级缓存，缓存相关逻辑，数据库相关逻辑由delegate实现
         executor.query(ms, 12, RowBounds.DEFAULT, SimpleExecutor.NO_RESULT_HANDLER);
         executor.commit(true);
@@ -105,7 +112,9 @@ public class ExecutorTest {
     public void sessionTest() {
         SqlSession sqlSession = factory.openSession(true);
         List<Object> list = sqlSession.selectList("com.cplh.springboot.mybatis.dao.StudentMapper.selectByPrimaryKey", 12);
+//        sqlSession.select();
         System.out.println(list.get(0));
 
     }
+
 }

@@ -18,4 +18,5 @@ public interface StudentService {
      */
     PageInfo<Student> findPage();
 
+    void updateById(Student student);
 }

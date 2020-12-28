@@ -39,4 +39,12 @@ public class StudentServiceImplTest {
         PageInfo<Student> page = studentService.findPage();
         System.out.println(page);
     }
+
+    @Test
+    public void update() {
+        Student student = new Student();
+        student.setName("update");
+        student.setId(8);
+        studentService.updateById(student);
+    }
 }
