@@ -1,0 +1,11 @@
+spring:
+    kafka:
+        bootstrap-servers: localhost:9092, localhost:9093
+        producer:
+            retries: 0
+        consumer:
+            auto-commit-interval: 100
+            enable-auto-commit: true
+            auto-offset-reset: latest
+#            batch-size: 16384
+#            buffer-memory: 33554432
